@@ -1,0 +1,7 @@
+﻿@if(Object.Equals(Session["isLogged"], true)) {
+    <text>Welcome <strong>@Session["username"]</strong>!
+    [ @Html.ActionLink("Log Off", "LogOff", "Account") ]</text>
+}
+else {
+    @:[ @Html.ActionLink("Log On", "LogOn", "Account") ]
+}

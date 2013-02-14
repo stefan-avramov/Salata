@@ -1,0 +1,554 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TopCoderPrototypeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="TopCoderPrototypeModelStoreContainer">
+          <EntitySet Name="Categories" EntityType="TopCoderPrototypeModel.Store.Categories" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CompetetionsProblems" EntityType="TopCoderPrototypeModel.Store.CompetetionsProblems" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Competitions" EntityType="TopCoderPrototypeModel.Store.Competitions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CompetitionsUsers" EntityType="TopCoderPrototypeModel.Store.CompetitionsUsers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Problems" EntityType="TopCoderPrototypeModel.Store.Problems" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Submissions" EntityType="TopCoderPrototypeModel.Store.Submissions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="TopCoderPrototypeModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="TopCoderPrototypeModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_CompetetionsProblems_Competitions" Association="TopCoderPrototypeModel.Store.FK_CompetetionsProblems_Competitions">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="CompetetionsProblems" EntitySet="CompetetionsProblems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompetetionsProblems_Problems" Association="TopCoderPrototypeModel.Store.FK_CompetetionsProblems_Problems">
+            <End Role="Problems" EntitySet="Problems" />
+            <End Role="CompetetionsProblems" EntitySet="CompetetionsProblems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Competitions_Categories" Association="TopCoderPrototypeModel.Store.FK_Competitions_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Competitions" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompetitionsUsers_Competitions" Association="TopCoderPrototypeModel.Store.FK_CompetitionsUsers_Competitions">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="CompetitionsUsers" EntitySet="CompetitionsUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompetitionsUsers_Users" Association="TopCoderPrototypeModel.Store.FK_CompetitionsUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CompetitionsUsers" EntitySet="CompetitionsUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Submissions_Problems" Association="TopCoderPrototypeModel.Store.FK_Submissions_Problems">
+            <End Role="Problems" EntitySet="Problems" />
+            <End Role="Submissions" EntitySet="Submissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Submissions_Users" Association="TopCoderPrototypeModel.Store.FK_Submissions_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Submissions" EntitySet="Submissions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CompetetionsProblems">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CompetetionId" Type="int" Nullable="false" />
+          <Property Name="ProblemId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Competitions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="Start" Type="datetime" Nullable="false" />
+          <Property Name="End" Type="datetime" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompetitionsUsers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CompetitionId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Start" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Problems">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CompetitionId" Type="int" Nullable="false" />
+          <Property Name="AuthorId" Type="int" Nullable="false" />
+          <Property Name="Data" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Submissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ProblemId" Type="int" Nullable="false" />
+          <Property Name="Start" Type="datetime" Nullable="false" />
+          <Property Name="IsReady" Type="bit" Nullable="false" />
+          <Property Name="Answer" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="JobTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="Education" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_CompetetionsProblems_Competitions">
+          <End Role="Competitions" Type="TopCoderPrototypeModel.Store.Competitions" Multiplicity="1" />
+          <End Role="CompetetionsProblems" Type="TopCoderPrototypeModel.Store.CompetetionsProblems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompetetionsProblems">
+              <PropertyRef Name="CompetetionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompetetionsProblems_Problems">
+          <End Role="Problems" Type="TopCoderPrototypeModel.Store.Problems" Multiplicity="1" />
+          <End Role="CompetetionsProblems" Type="TopCoderPrototypeModel.Store.CompetetionsProblems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Problems">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompetetionsProblems">
+              <PropertyRef Name="ProblemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Competitions_Categories">
+          <End Role="Categories" Type="TopCoderPrototypeModel.Store.Categories" Multiplicity="1" />
+          <End Role="Competitions" Type="TopCoderPrototypeModel.Store.Competitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Competitions">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompetitionsUsers_Competitions">
+          <End Role="Competitions" Type="TopCoderPrototypeModel.Store.Competitions" Multiplicity="1" />
+          <End Role="CompetitionsUsers" Type="TopCoderPrototypeModel.Store.CompetitionsUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompetitionsUsers">
+              <PropertyRef Name="CompetitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompetitionsUsers_Users">
+          <End Role="Users" Type="TopCoderPrototypeModel.Store.Users" Multiplicity="1" />
+          <End Role="CompetitionsUsers" Type="TopCoderPrototypeModel.Store.CompetitionsUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompetitionsUsers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Submissions_Problems">
+          <End Role="Problems" Type="TopCoderPrototypeModel.Store.Problems" Multiplicity="1" />
+          <End Role="Submissions" Type="TopCoderPrototypeModel.Store.Submissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Problems">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Submissions">
+              <PropertyRef Name="ProblemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Submissions_Users">
+          <End Role="Users" Type="TopCoderPrototypeModel.Store.Users" Multiplicity="1" />
+          <End Role="Submissions" Type="TopCoderPrototypeModel.Store.Submissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Submissions">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TopCoderPrototypeModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="TopCoderPrototypeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="TopCoderPrototypeModel.Category" />
+          <EntitySet Name="CompetetionsProblems" EntityType="TopCoderPrototypeModel.CompetetionsProblem" />
+          <EntitySet Name="Competitions" EntityType="TopCoderPrototypeModel.Competition" />
+          <EntitySet Name="CompetitionsUsers" EntityType="TopCoderPrototypeModel.CompetitionsUser" />
+          <EntitySet Name="Problems" EntityType="TopCoderPrototypeModel.Problem" />
+          <EntitySet Name="Submissions" EntityType="TopCoderPrototypeModel.Submission" />
+          <EntitySet Name="sysdiagrams" EntityType="TopCoderPrototypeModel.sysdiagram" />
+          <EntitySet Name="Users" EntityType="TopCoderPrototypeModel.User" />
+          <AssociationSet Name="FK_Competitions_Categories" Association="TopCoderPrototypeModel.FK_Competitions_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Competitions" EntitySet="Competitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompetetionsProblems_Competitions" Association="TopCoderPrototypeModel.FK_CompetetionsProblems_Competitions">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="CompetetionsProblems" EntitySet="CompetetionsProblems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompetetionsProblems_Problems" Association="TopCoderPrototypeModel.FK_CompetetionsProblems_Problems">
+            <End Role="Problems" EntitySet="Problems" />
+            <End Role="CompetetionsProblems" EntitySet="CompetetionsProblems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompetitionsUsers_Competitions" Association="TopCoderPrototypeModel.FK_CompetitionsUsers_Competitions">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="CompetitionsUsers" EntitySet="CompetitionsUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompetitionsUsers_Users" Association="TopCoderPrototypeModel.FK_CompetitionsUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CompetitionsUsers" EntitySet="CompetitionsUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Submissions_Problems" Association="TopCoderPrototypeModel.FK_Submissions_Problems">
+            <End Role="Problems" EntitySet="Problems" />
+            <End Role="Submissions" EntitySet="Submissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Submissions_Users" Association="TopCoderPrototypeModel.FK_Submissions_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Submissions" EntitySet="Submissions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Competitions" Relationship="TopCoderPrototypeModel.FK_Competitions_Categories" FromRole="Categories" ToRole="Competitions" />
+        </EntityType>
+        <EntityType Name="CompetetionsProblem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompetetionId" Type="Int32" Nullable="false" />
+          <Property Name="ProblemId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Competition" Relationship="TopCoderPrototypeModel.FK_CompetetionsProblems_Competitions" FromRole="CompetetionsProblems" ToRole="Competitions" />
+          <NavigationProperty Name="Problem" Relationship="TopCoderPrototypeModel.FK_CompetetionsProblems_Problems" FromRole="CompetetionsProblems" ToRole="Problems" />
+        </EntityType>
+        <EntityType Name="Competition">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="Start" Type="DateTime" Nullable="false" />
+          <Property Name="End" Type="DateTime" Nullable="false" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="TopCoderPrototypeModel.FK_Competitions_Categories" FromRole="Competitions" ToRole="Categories" />
+          <NavigationProperty Name="CompetetionsProblems" Relationship="TopCoderPrototypeModel.FK_CompetetionsProblems_Competitions" FromRole="Competitions" ToRole="CompetetionsProblems" />
+          <NavigationProperty Name="CompetitionsUsers" Relationship="TopCoderPrototypeModel.FK_CompetitionsUsers_Competitions" FromRole="Competitions" ToRole="CompetitionsUsers" />
+        </EntityType>
+        <EntityType Name="CompetitionsUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompetitionId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Start" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Competition" Relationship="TopCoderPrototypeModel.FK_CompetitionsUsers_Competitions" FromRole="CompetitionsUsers" ToRole="Competitions" />
+          <NavigationProperty Name="User" Relationship="TopCoderPrototypeModel.FK_CompetitionsUsers_Users" FromRole="CompetitionsUsers" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Problem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompetitionId" Type="Int32" Nullable="false" />
+          <Property Name="AuthorId" Type="Int32" Nullable="false" />
+          <Property Name="Data" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="CompetetionsProblems" Relationship="TopCoderPrototypeModel.FK_CompetetionsProblems_Problems" FromRole="Problems" ToRole="CompetetionsProblems" />
+          <NavigationProperty Name="Submissions" Relationship="TopCoderPrototypeModel.FK_Submissions_Problems" FromRole="Problems" ToRole="Submissions" />
+        </EntityType>
+        <EntityType Name="Submission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ProblemId" Type="Int32" Nullable="false" />
+          <Property Name="Start" Type="DateTime" Nullable="false" />
+          <Property Name="IsReady" Type="Boolean" Nullable="false" />
+          <Property Name="Answer" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Problem" Relationship="TopCoderPrototypeModel.FK_Submissions_Problems" FromRole="Submissions" ToRole="Problems" />
+          <NavigationProperty Name="User" Relationship="TopCoderPrototypeModel.FK_Submissions_Users" FromRole="Submissions" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="JobTitle" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Education" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="CompetitionsUsers" Relationship="TopCoderPrototypeModel.FK_CompetitionsUsers_Users" FromRole="Users" ToRole="CompetitionsUsers" />
+          <NavigationProperty Name="Submissions" Relationship="TopCoderPrototypeModel.FK_Submissions_Users" FromRole="Users" ToRole="Submissions" />
+        </EntityType>
+        <Association Name="FK_Competitions_Categories">
+          <End Role="Categories" Type="TopCoderPrototypeModel.Category" Multiplicity="1" />
+          <End Role="Competitions" Type="TopCoderPrototypeModel.Competition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Competitions">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompetetionsProblems_Competitions">
+          <End Role="Competitions" Type="TopCoderPrototypeModel.Competition" Multiplicity="1" />
+          <End Role="CompetetionsProblems" Type="TopCoderPrototypeModel.CompetetionsProblem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompetetionsProblems">
+              <PropertyRef Name="CompetetionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompetetionsProblems_Problems">
+          <End Role="Problems" Type="TopCoderPrototypeModel.Problem" Multiplicity="1" />
+          <End Role="CompetetionsProblems" Type="TopCoderPrototypeModel.CompetetionsProblem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Problems">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompetetionsProblems">
+              <PropertyRef Name="ProblemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompetitionsUsers_Competitions">
+          <End Role="Competitions" Type="TopCoderPrototypeModel.Competition" Multiplicity="1" />
+          <End Role="CompetitionsUsers" Type="TopCoderPrototypeModel.CompetitionsUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompetitionsUsers">
+              <PropertyRef Name="CompetitionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompetitionsUsers_Users">
+          <End Role="Users" Type="TopCoderPrototypeModel.User" Multiplicity="1" />
+          <End Role="CompetitionsUsers" Type="TopCoderPrototypeModel.CompetitionsUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompetitionsUsers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Submissions_Problems">
+          <End Role="Problems" Type="TopCoderPrototypeModel.Problem" Multiplicity="1" />
+          <End Role="Submissions" Type="TopCoderPrototypeModel.Submission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Problems">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Submissions">
+              <PropertyRef Name="ProblemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Submissions_Users">
+          <End Role="Users" Type="TopCoderPrototypeModel.User" Multiplicity="1" />
+          <End Role="Submissions" Type="TopCoderPrototypeModel.Submission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Submissions">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TopCoderPrototypeModelStoreContainer" CdmEntityContainer="TopCoderPrototypeEntities">
+          <EntitySetMapping Name="Categories"><EntityTypeMapping TypeName="TopCoderPrototypeModel.Category"><MappingFragment StoreEntitySet="Categories">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="CompetetionsProblems"><EntityTypeMapping TypeName="TopCoderPrototypeModel.CompetetionsProblem"><MappingFragment StoreEntitySet="CompetetionsProblems">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="CompetetionId" ColumnName="CompetetionId" />
+            <ScalarProperty Name="ProblemId" ColumnName="ProblemId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Competitions"><EntityTypeMapping TypeName="TopCoderPrototypeModel.Competition"><MappingFragment StoreEntitySet="Competitions">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+            <ScalarProperty Name="Start" ColumnName="Start" />
+            <ScalarProperty Name="End" ColumnName="End" />
+            <ScalarProperty Name="Duration" ColumnName="Duration" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="CompetitionsUsers"><EntityTypeMapping TypeName="TopCoderPrototypeModel.CompetitionsUser"><MappingFragment StoreEntitySet="CompetitionsUsers">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="Start" ColumnName="Start" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Problems"><EntityTypeMapping TypeName="TopCoderPrototypeModel.Problem"><MappingFragment StoreEntitySet="Problems">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+            <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+            <ScalarProperty Name="Data" ColumnName="Data" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Submissions"><EntityTypeMapping TypeName="TopCoderPrototypeModel.Submission"><MappingFragment StoreEntitySet="Submissions">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="ProblemId" ColumnName="ProblemId" />
+            <ScalarProperty Name="Start" ColumnName="Start" />
+            <ScalarProperty Name="IsReady" ColumnName="IsReady" />
+            <ScalarProperty Name="Answer" ColumnName="Answer" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams"><EntityTypeMapping TypeName="TopCoderPrototypeModel.sysdiagram"><MappingFragment StoreEntitySet="sysdiagrams">
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+            <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+            <ScalarProperty Name="version" ColumnName="version" />
+            <ScalarProperty Name="definition" ColumnName="definition" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="TopCoderPrototypeModel.User"><MappingFragment StoreEntitySet="Users">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Username" ColumnName="Username" />
+            <ScalarProperty Name="Password" ColumnName="Password" />
+            <ScalarProperty Name="Type" ColumnName="Type" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+            <ScalarProperty Name="Education" ColumnName="Education" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="DataModel">
+        <EntityTypeShape EntityType="TopCoderPrototypeModel.Category" Width="1.5" PointX="0.75" PointY="4" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopCoderPrototypeModel.CompetetionsProblem" Width="1.5" PointX="5.25" PointY="3.875" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopCoderPrototypeModel.Competition" Width="1.5" PointX="3" PointY="3.5" Height="2.5571907552083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopCoderPrototypeModel.CompetitionsUser" Width="1.5" PointX="5.25" PointY="0.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopCoderPrototypeModel.Problem" Width="1.5" PointX="3" PointY="11.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopCoderPrototypeModel.Submission" Width="1.5" PointX="5.25" PointY="9.375" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopCoderPrototypeModel.sysdiagram" Width="1.5" PointX="7.75" PointY="2.125" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopCoderPrototypeModel.User" Width="1.5" PointX="3" PointY="7.375" Height="2.7494921874999996" IsExpanded="true" />
+        <AssociationConnector Association="TopCoderPrototypeModel.FK_Competitions_Categories" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="4.797841796875" />
+          <ConnectorPoint PointX="3" PointY="4.797841796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="TopCoderPrototypeModel.FK_CompetetionsProblems_Competitions" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="4.8651432291666667" />
+          <ConnectorPoint PointX="4.979166666666667" PointY="4.8651432291666659" />
+          <ConnectorPoint PointX="5.145833333333333" PointY="4.8651432291666667" />
+          <ConnectorPoint PointX="5.25" PointY="4.8651432291666667" />
+        </AssociationConnector>
+        <AssociationConnector Association="TopCoderPrototypeModel.FK_CompetetionsProblems_Problems" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="11.751152846153847" />
+          <ConnectorPoint PointX="4.875" PointY="11.376152846153847" />
+          <ConnectorPoint PointX="4.875" PointY="5.39146684375" />
+          <ConnectorPoint PointX="4.979166666666667" PointY="5.3914668437499991" />
+          <ConnectorPoint PointX="5.145833333333333" PointY="5.39146684375" />
+          <ConnectorPoint PointX="5.25" PointY="5.39146684375" />
+        </AssociationConnector>
+        <AssociationConnector Association="TopCoderPrototypeModel.FK_CompetitionsUsers_Competitions" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.75" PointY="3.5" />
+          <ConnectorPoint PointX="3.75" PointY="1.8362939453124998" />
+          <ConnectorPoint PointX="5.25" PointY="1.8362939453124998" />
+        </AssociationConnector>
+        <AssociationConnector Association="TopCoderPrototypeModel.FK_CompetitionsUsers_Users" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="7.4373066923076925" />
+          <ConnectorPoint PointX="4.8160744349011209" PointY="7.1212322574065725" />
+          <ConnectorPoint PointX="4.9339255650988791" PointY="7.0033811272088151" />
+          <ConnectorPoint PointX="5.0625" PointY="6.8748066923076934" />
+          <ConnectorPoint PointX="5.0625" PointY="2.4106929179687504" />
+          <ConnectorPoint PointX="5.25" PointY="2.4106929179687504" />
+        </AssociationConnector>
+        <AssociationConnector Association="TopCoderPrototypeModel.FK_Submissions_Problems" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="12.927389822916666" />
+          <ConnectorPoint PointX="6" PointY="12.927389822916666" />
+          <ConnectorPoint PointX="6" PointY="11.932190755208332" />
+        </AssociationConnector>
+        <AssociationConnector Association="TopCoderPrototypeModel.FK_Submissions_Users" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="9.74974609375" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="9.74974609375" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="9.74974609375" />
+          <ConnectorPoint PointX="5.25" PointY="9.74974609375" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
