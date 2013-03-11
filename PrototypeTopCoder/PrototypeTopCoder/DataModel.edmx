@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TopCoderPrototypeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+      <Schema Namespace="TopCoderPrototypeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="TopCoderPrototypeModelStoreContainer">
           <EntitySet Name="Categories" EntityType="TopCoderPrototypeModel.Store.Categories" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CompetetionsProblems" EntityType="TopCoderPrototypeModel.Store.CompetetionsProblems" store:Type="Tables" Schema="dbo" />
@@ -206,7 +206,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TopCoderPrototypeModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -271,15 +272,15 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
           <Property Name="Start" Type="DateTime" Nullable="false" />
           <Property Name="End" Type="DateTime" Nullable="false" />
           <Property Name="Duration" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Category" Relationship="TopCoderPrototypeModel.FK_Competitions_Categories" FromRole="Competitions" ToRole="Categories" />
           <NavigationProperty Name="CompetetionsProblems" Relationship="TopCoderPrototypeModel.FK_CompetetionsProblems_Competitions" FromRole="Competitions" ToRole="CompetetionsProblems" />
           <NavigationProperty Name="CompetitionsUsers" Relationship="TopCoderPrototypeModel.FK_CompetitionsUsers_Competitions" FromRole="Competitions" ToRole="CompetitionsUsers" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="CompetitionsUser">
           <Key>
@@ -288,7 +289,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CompetitionId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Start" Type="DateTime" Nullable="true" />
+          <Property Name="Start" Type="DateTime" />
           <NavigationProperty Name="Competition" Relationship="TopCoderPrototypeModel.FK_CompetitionsUsers_Competitions" FromRole="CompetitionsUsers" ToRole="Competitions" />
           <NavigationProperty Name="User" Relationship="TopCoderPrototypeModel.FK_CompetitionsUsers_Users" FromRole="CompetitionsUsers" ToRole="Users" />
         </EntityType>
@@ -297,13 +298,12 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompetitionId" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="ProblemType" Type="Int32" Nullable="false" />
           <Property Name="AuthorId" Type="Int32" Nullable="false" />
           <Property Name="Data" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="CompetetionsProblems" Relationship="TopCoderPrototypeModel.FK_CompetetionsProblems_Problems" FromRole="Problems" ToRole="CompetetionsProblems" />
           <NavigationProperty Name="Submissions" Relationship="TopCoderPrototypeModel.FK_Submissions_Problems" FromRole="Problems" ToRole="Submissions" />
-          <Property Type="String" Name="Title" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="ProblemType" Nullable="false" />
         </EntityType>
         <EntityType Name="Submission">
           <Key>
@@ -337,8 +337,8 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="JobTitle" Type="String" MaxLength="50" Unicode="true" FixedLength="false" Nullable="true" />
-          <Property Name="Education" Type="String" MaxLength="50" Unicode="true" FixedLength="false" Nullable="true" />
+          <Property Name="JobTitle" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Education" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="CompetitionsUsers" Relationship="TopCoderPrototypeModel.FK_CompetitionsUsers_Users" FromRole="Users" ToRole="CompetitionsUsers" />
           <NavigationProperty Name="Submissions" Relationship="TopCoderPrototypeModel.FK_Submissions_Users" FromRole="Users" ToRole="Submissions" />
         </EntityType>
@@ -442,13 +442,13 @@
             <ScalarProperty Name="ProblemId" ColumnName="ProblemId" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Competitions"><EntityTypeMapping TypeName="TopCoderPrototypeModel.Competition"><MappingFragment StoreEntitySet="Competitions">
-            <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
             <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
             <ScalarProperty Name="Start" ColumnName="Start" />
             <ScalarProperty Name="End" ColumnName="End" />
             <ScalarProperty Name="Duration" ColumnName="Duration" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="CompetitionsUsers"><EntityTypeMapping TypeName="TopCoderPrototypeModel.CompetitionsUser"><MappingFragment StoreEntitySet="CompetitionsUsers">
             <ScalarProperty Name="ID" ColumnName="ID" />
@@ -457,9 +457,9 @@
             <ScalarProperty Name="Start" ColumnName="Start" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Problems"><EntityTypeMapping TypeName="TopCoderPrototypeModel.Problem"><MappingFragment StoreEntitySet="Problems">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
             <ScalarProperty Name="ProblemType" ColumnName="ProblemType" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
             <ScalarProperty Name="Data" ColumnName="Data" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
@@ -510,9 +510,9 @@
       <Diagram Name="DataModel">
         <EntityTypeShape EntityType="TopCoderPrototypeModel.Category" Width="1.5" PointX="0.75" PointY="4" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="TopCoderPrototypeModel.CompetetionsProblem" Width="1.5" PointX="5.25" PointY="3.875" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="TopCoderPrototypeModel.Competition" Width="1.5" PointX="3" PointY="3.5" Height="2.5571907552083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopCoderPrototypeModel.Competition" Width="1.5" PointX="3" PointY="3.375" Height="2.9417936197916656" IsExpanded="true" />
         <EntityTypeShape EntityType="TopCoderPrototypeModel.CompetitionsUser" Width="1.5" PointX="5.25" PointY="0.75" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="TopCoderPrototypeModel.Problem" Width="1.5" PointX="3" PointY="11.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopCoderPrototypeModel.Problem" Width="1.5" PointX="3" PointY="11.625" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="TopCoderPrototypeModel.Submission" Width="1.5" PointX="5.25" PointY="9.375" Height="2.5571907552083317" IsExpanded="true" />
         <EntityTypeShape EntityType="TopCoderPrototypeModel.sysdiagram" Width="1.5" PointX="7.75" PointY="2.125" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="TopCoderPrototypeModel.User" Width="1.5" PointX="3" PointY="7.375" Height="2.7494921874999996" IsExpanded="true" />
@@ -527,15 +527,15 @@
           <ConnectorPoint PointX="5.25" PointY="4.8651432291666667" />
         </AssociationConnector>
         <AssociationConnector Association="TopCoderPrototypeModel.FK_CompetetionsProblems_Problems" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="11.751152846153847" />
-          <ConnectorPoint PointX="4.875" PointY="11.376152846153847" />
+          <ConnectorPoint PointX="4.5" PointY="11.626152846153847" />
+          <ConnectorPoint PointX="4.875" PointY="11.251152846153847" />
           <ConnectorPoint PointX="4.875" PointY="5.39146684375" />
           <ConnectorPoint PointX="4.979166666666667" PointY="5.3914668437499991" />
           <ConnectorPoint PointX="5.145833333333333" PointY="5.39146684375" />
           <ConnectorPoint PointX="5.25" PointY="5.39146684375" />
         </AssociationConnector>
         <AssociationConnector Association="TopCoderPrototypeModel.FK_CompetitionsUsers_Competitions" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.75" PointY="3.5" />
+          <ConnectorPoint PointX="3.75" PointY="3.375" />
           <ConnectorPoint PointX="3.75" PointY="1.8362939453124998" />
           <ConnectorPoint PointX="5.25" PointY="1.8362939453124998" />
         </AssociationConnector>
@@ -548,9 +548,8 @@
           <ConnectorPoint PointX="5.25" PointY="2.4106929179687504" />
         </AssociationConnector>
         <AssociationConnector Association="TopCoderPrototypeModel.FK_Submissions_Problems" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="12.927389822916666" />
-          <ConnectorPoint PointX="6" PointY="12.927389822916666" />
-          <ConnectorPoint PointX="6" PointY="11.932190755208332" />
+          <ConnectorPoint PointX="4.5" PointY="11.81042430068109" />
+          <ConnectorPoint PointX="5.25" PointY="11.81042430068109" />
         </AssociationConnector>
         <AssociationConnector Association="TopCoderPrototypeModel.FK_Submissions_Users" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="9.74974609375" />

@@ -585,20 +585,20 @@ namespace PrototypeTopCoder
         /// Create a new Competition object.
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
         /// <param name="categoryId">Initial value of the CategoryId property.</param>
         /// <param name="start">Initial value of the Start property.</param>
         /// <param name="end">Initial value of the End property.</param>
         /// <param name="duration">Initial value of the Duration property.</param>
-        /// <param name="name">Initial value of the Name property.</param>
-        public static Competition CreateCompetition(global::System.Int32 id, global::System.Int32 categoryId, global::System.DateTime start, global::System.DateTime end, global::System.Int32 duration, global::System.String name)
+        public static Competition CreateCompetition(global::System.Int32 id, global::System.String name, global::System.Int32 categoryId, global::System.DateTime start, global::System.DateTime end, global::System.Int32 duration)
         {
             Competition competition = new Competition();
             competition.ID = id;
+            competition.Name = name;
             competition.CategoryId = categoryId;
             competition.Start = start;
             competition.End = end;
             competition.Duration = duration;
-            competition.Name = name;
             return competition;
         }
 
@@ -631,6 +631,30 @@ namespace PrototypeTopCoder
         private global::System.Int32 _ID;
         partial void OnIDChanging(global::System.Int32 value);
         partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -727,30 +751,6 @@ namespace PrototypeTopCoder
         private global::System.Int32 _Duration;
         partial void OnDurationChanging(global::System.Int32 value);
         partial void OnDurationChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Name
-        {
-            get
-            {
-                return _Name;
-            }
-            set
-            {
-                OnNameChanging(value);
-                ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Name");
-                OnNameChanged();
-            }
-        }
-        private global::System.String _Name;
-        partial void OnNameChanging(global::System.String value);
-        partial void OnNameChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1089,20 +1089,18 @@ namespace PrototypeTopCoder
         /// Create a new Problem object.
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
-        /// <param name="competitionId">Initial value of the CompetitionId property.</param>
-        /// <param name="authorId">Initial value of the AuthorId property.</param>
-        /// <param name="data">Initial value of the Data property.</param>
         /// <param name="title">Initial value of the Title property.</param>
         /// <param name="problemType">Initial value of the ProblemType property.</param>
-        public static Problem CreateProblem(global::System.Int32 id, global::System.Int32 competitionId, global::System.Int32 authorId, global::System.Byte[] data, global::System.String title, global::System.Int32 problemType)
+        /// <param name="authorId">Initial value of the AuthorId property.</param>
+        /// <param name="data">Initial value of the Data property.</param>
+        public static Problem CreateProblem(global::System.Int32 id, global::System.String title, global::System.Int32 problemType, global::System.Int32 authorId, global::System.Byte[] data)
         {
             Problem problem = new Problem();
             problem.ID = id;
-            problem.CompetitionId = competitionId;
-            problem.AuthorId = authorId;
-            problem.Data = data;
             problem.Title = title;
             problem.ProblemType = problemType;
+            problem.AuthorId = authorId;
+            problem.Data = data;
             return problem;
         }
 
@@ -1135,78 +1133,6 @@ namespace PrototypeTopCoder
         private global::System.Int32 _ID;
         partial void OnIDChanging(global::System.Int32 value);
         partial void OnIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 CompetitionId
-        {
-            get
-            {
-                return _CompetitionId;
-            }
-            set
-            {
-                OnCompetitionIdChanging(value);
-                ReportPropertyChanging("CompetitionId");
-                _CompetitionId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("CompetitionId");
-                OnCompetitionIdChanged();
-            }
-        }
-        private global::System.Int32 _CompetitionId;
-        partial void OnCompetitionIdChanging(global::System.Int32 value);
-        partial void OnCompetitionIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 AuthorId
-        {
-            get
-            {
-                return _AuthorId;
-            }
-            set
-            {
-                OnAuthorIdChanging(value);
-                ReportPropertyChanging("AuthorId");
-                _AuthorId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("AuthorId");
-                OnAuthorIdChanged();
-            }
-        }
-        private global::System.Int32 _AuthorId;
-        partial void OnAuthorIdChanging(global::System.Int32 value);
-        partial void OnAuthorIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Byte[] Data
-        {
-            get
-            {
-                return StructuralObject.GetValidValue(_Data);
-            }
-            set
-            {
-                OnDataChanging(value);
-                ReportPropertyChanging("Data");
-                _Data = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Data");
-                OnDataChanged();
-            }
-        }
-        private global::System.Byte[] _Data;
-        partial void OnDataChanging(global::System.Byte[] value);
-        partial void OnDataChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1255,6 +1181,54 @@ namespace PrototypeTopCoder
         private global::System.Int32 _ProblemType;
         partial void OnProblemTypeChanging(global::System.Int32 value);
         partial void OnProblemTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 AuthorId
+        {
+            get
+            {
+                return _AuthorId;
+            }
+            set
+            {
+                OnAuthorIdChanging(value);
+                ReportPropertyChanging("AuthorId");
+                _AuthorId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AuthorId");
+                OnAuthorIdChanged();
+            }
+        }
+        private global::System.Int32 _AuthorId;
+        partial void OnAuthorIdChanging(global::System.Int32 value);
+        partial void OnAuthorIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte[] Data
+        {
+            get
+            {
+                return StructuralObject.GetValidValue(_Data);
+            }
+            set
+            {
+                OnDataChanging(value);
+                ReportPropertyChanging("Data");
+                _Data = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Data");
+                OnDataChanged();
+            }
+        }
+        private global::System.Byte[] _Data;
+        partial void OnDataChanging(global::System.Byte[] value);
+        partial void OnDataChanged();
 
         #endregion
     
