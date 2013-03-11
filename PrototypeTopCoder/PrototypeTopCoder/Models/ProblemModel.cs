@@ -19,6 +19,7 @@ namespace PrototypeTopCoder.Models
 		public abstract int Evaluate(object answer);
 	}
 
+	[Serializable]
 	public class SimpleTestProblemModel : ProblemModel
 	{
 		public string Question { get; set; }

@@ -164,10 +164,21 @@ namespace PrototypeTopCoder
 				MemoryStream ms = new MemoryStream();
 				bf.Serialize(ms, model);
 				problem.Data = ms.ToArray();
+				problem.ProblemType = GetProblemType(model.GetType());
 
 				entityModel.AddToProblems(problem);
 				entityModel.SaveChanges();
 			}
+		}
+
+		private static int GetProblemType(Type type)
+		{
+			if (type == typeof(SimpleTestProblemModel))
+			{
+				return (int)ProblemType.SimpleTest;
+			}
+
+			return 0;
 		}
 
 		private static User GetUser(TopCoderPrototypeEntities model, string username)
