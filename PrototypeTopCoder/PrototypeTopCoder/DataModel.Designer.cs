@@ -881,14 +881,12 @@ namespace PrototypeTopCoder
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="competitionId">Initial value of the CompetitionId property.</param>
         /// <param name="userId">Initial value of the UserId property.</param>
-        /// <param name="start">Initial value of the Start property.</param>
-        public static CompetitionsUser CreateCompetitionsUser(global::System.Int32 id, global::System.Int32 competitionId, global::System.Int32 userId, global::System.DateTime start)
+        public static CompetitionsUser CreateCompetitionsUser(global::System.Int32 id, global::System.Int32 competitionId, global::System.Int32 userId)
         {
             CompetitionsUser competitionsUser = new CompetitionsUser();
             competitionsUser.ID = id;
             competitionsUser.CompetitionId = competitionId;
             competitionsUser.UserId = userId;
-            competitionsUser.Start = start;
             return competitionsUser;
         }
 
@@ -973,9 +971,9 @@ namespace PrototypeTopCoder
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.DateTime Start
+        public Nullable<global::System.DateTime> Start
         {
             get
             {
@@ -990,8 +988,8 @@ namespace PrototypeTopCoder
                 OnStartChanged();
             }
         }
-        private global::System.DateTime _Start;
-        partial void OnStartChanging(global::System.DateTime value);
+        private Nullable<global::System.DateTime> _Start;
+        partial void OnStartChanging(Nullable<global::System.DateTime> value);
         partial void OnStartChanged();
 
         #endregion
@@ -1094,13 +1092,17 @@ namespace PrototypeTopCoder
         /// <param name="competitionId">Initial value of the CompetitionId property.</param>
         /// <param name="authorId">Initial value of the AuthorId property.</param>
         /// <param name="data">Initial value of the Data property.</param>
-        public static Problem CreateProblem(global::System.Int32 id, global::System.Int32 competitionId, global::System.Int32 authorId, global::System.Byte[] data)
+        /// <param name="title">Initial value of the Title property.</param>
+        /// <param name="problemType">Initial value of the ProblemType property.</param>
+        public static Problem CreateProblem(global::System.Int32 id, global::System.Int32 competitionId, global::System.Int32 authorId, global::System.Byte[] data, global::System.String title, global::System.Int32 problemType)
         {
             Problem problem = new Problem();
             problem.ID = id;
             problem.CompetitionId = competitionId;
             problem.AuthorId = authorId;
             problem.Data = data;
+            problem.Title = title;
+            problem.ProblemType = problemType;
             return problem;
         }
 
@@ -1205,6 +1207,54 @@ namespace PrototypeTopCoder
         private global::System.Byte[] _Data;
         partial void OnDataChanging(global::System.Byte[] value);
         partial void OnDataChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Title
+        {
+            get
+            {
+                return _Title;
+            }
+            set
+            {
+                OnTitleChanging(value);
+                ReportPropertyChanging("Title");
+                _Title = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Title");
+                OnTitleChanged();
+            }
+        }
+        private global::System.String _Title;
+        partial void OnTitleChanging(global::System.String value);
+        partial void OnTitleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ProblemType
+        {
+            get
+            {
+                return _ProblemType;
+            }
+            set
+            {
+                OnProblemTypeChanging(value);
+                ReportPropertyChanging("ProblemType");
+                _ProblemType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProblemType");
+                OnProblemTypeChanged();
+            }
+        }
+        private global::System.Int32 _ProblemType;
+        partial void OnProblemTypeChanging(global::System.Int32 value);
+        partial void OnProblemTypeChanged();
 
         #endregion
     

@@ -77,14 +77,15 @@
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CompetitionId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Start" Type="datetime" Nullable="false" />
+          <Property Name="Start" Type="datetime" />
         </EntityType>
         <EntityType Name="Problems">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="CompetitionId" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="ProblemType" Type="int" Nullable="false" />
           <Property Name="AuthorId" Type="int" Nullable="false" />
           <Property Name="Data" Type="varbinary(max)" Nullable="false" />
         </EntityType>
@@ -287,7 +288,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CompetitionId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Start" Type="DateTime" Nullable="false" />
+          <Property Name="Start" Type="DateTime" Nullable="true" />
           <NavigationProperty Name="Competition" Relationship="TopCoderPrototypeModel.FK_CompetitionsUsers_Competitions" FromRole="CompetitionsUsers" ToRole="Competitions" />
           <NavigationProperty Name="User" Relationship="TopCoderPrototypeModel.FK_CompetitionsUsers_Users" FromRole="CompetitionsUsers" ToRole="Users" />
         </EntityType>
@@ -301,6 +302,8 @@
           <Property Name="Data" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="CompetetionsProblems" Relationship="TopCoderPrototypeModel.FK_CompetetionsProblems_Problems" FromRole="Problems" ToRole="CompetetionsProblems" />
           <NavigationProperty Name="Submissions" Relationship="TopCoderPrototypeModel.FK_Submissions_Problems" FromRole="Problems" ToRole="Submissions" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ProblemType" Nullable="false" />
         </EntityType>
         <EntityType Name="Submission">
           <Key>
@@ -454,8 +457,9 @@
             <ScalarProperty Name="Start" ColumnName="Start" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Problems"><EntityTypeMapping TypeName="TopCoderPrototypeModel.Problem"><MappingFragment StoreEntitySet="Problems">
-            <ScalarProperty Name="ID" ColumnName="ID" />
-            <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+            <ScalarProperty Name="ProblemType" ColumnName="ProblemType" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
             <ScalarProperty Name="Data" ColumnName="Data" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>

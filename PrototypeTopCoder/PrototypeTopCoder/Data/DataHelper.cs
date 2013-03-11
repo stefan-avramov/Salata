@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using PrototypeTopCoder.Models;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace PrototypeTopCoder
 {
@@ -114,6 +116,23 @@ namespace PrototypeTopCoder
 			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
 			{
 				return entityModel.Categories.ToList();
+			}
+		}
+
+		public static void AddNewProblem(ProblemModel model, int? id)
+		{
+			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+			{
+				Problem problem = new Problem();
+				problem.Title = model.Title;
+
+				BinaryFormatter bf = new BinaryFormatter();
+				MemoryStream ms = new MemoryStream();
+				bf.Serialize(ms, model);
+				problem.Data =  ms.ToArray();
+
+				entityModel.AddToProblems(problem);
+				entityModel.SaveChanges();
 			}
 		}
 	}

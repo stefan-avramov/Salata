@@ -5,7 +5,8 @@
 }
 
 <h2>Index</h2>
-@Html.ActionLink("Create competition", "CreateCompetition")
+@Html.ActionLink("Create a competition", "CreateCompetition")
+@Html.ActionLink("Create a problem", "CreateProblem", new { id = 0, type = 1 })
 <table>
  <tr>
     <th>Name</th><th>Start</th><th>End</th><th>Duration</th><th>Description</th><th>Edit</th>
