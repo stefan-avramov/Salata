@@ -589,7 +589,8 @@ namespace PrototypeTopCoder
         /// <param name="start">Initial value of the Start property.</param>
         /// <param name="end">Initial value of the End property.</param>
         /// <param name="duration">Initial value of the Duration property.</param>
-        public static Competition CreateCompetition(global::System.Int32 id, global::System.Int32 categoryId, global::System.DateTime start, global::System.DateTime end, global::System.Int32 duration)
+        /// <param name="name">Initial value of the Name property.</param>
+        public static Competition CreateCompetition(global::System.Int32 id, global::System.Int32 categoryId, global::System.DateTime start, global::System.DateTime end, global::System.Int32 duration, global::System.String name)
         {
             Competition competition = new Competition();
             competition.ID = id;
@@ -597,6 +598,7 @@ namespace PrototypeTopCoder
             competition.Start = start;
             competition.End = end;
             competition.Duration = duration;
+            competition.Name = name;
             return competition;
         }
 
@@ -725,6 +727,54 @@ namespace PrototypeTopCoder
         private global::System.Int32 _Duration;
         partial void OnDurationChanging(global::System.Int32 value);
         partial void OnDurationChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
 
         #endregion
     
@@ -1642,9 +1692,7 @@ namespace PrototypeTopCoder
         /// <param name="password">Initial value of the Password property.</param>
         /// <param name="type">Initial value of the Type property.</param>
         /// <param name="email">Initial value of the Email property.</param>
-        /// <param name="jobTitle">Initial value of the JobTitle property.</param>
-        /// <param name="education">Initial value of the Education property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String username, global::System.String password, global::System.Int32 type, global::System.String email, global::System.String jobTitle, global::System.String education)
+        public static User CreateUser(global::System.Int32 id, global::System.String username, global::System.String password, global::System.Int32 type, global::System.String email)
         {
             User user = new User();
             user.ID = id;
@@ -1652,8 +1700,6 @@ namespace PrototypeTopCoder
             user.Password = password;
             user.Type = type;
             user.Email = email;
-            user.JobTitle = jobTitle;
-            user.Education = education;
             return user;
         }
 
@@ -1786,7 +1832,7 @@ namespace PrototypeTopCoder
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String JobTitle
         {
@@ -1798,7 +1844,7 @@ namespace PrototypeTopCoder
             {
                 OnJobTitleChanging(value);
                 ReportPropertyChanging("JobTitle");
-                _JobTitle = StructuralObject.SetValidValue(value, false);
+                _JobTitle = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("JobTitle");
                 OnJobTitleChanged();
             }
@@ -1810,7 +1856,7 @@ namespace PrototypeTopCoder
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String Education
         {
@@ -1822,7 +1868,7 @@ namespace PrototypeTopCoder
             {
                 OnEducationChanging(value);
                 ReportPropertyChanging("Education");
-                _Education = StructuralObject.SetValidValue(value, false);
+                _Education = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("Education");
                 OnEducationChanged();
             }

@@ -63,10 +63,12 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="256" />
           <Property Name="CategoryId" Type="int" Nullable="false" />
           <Property Name="Start" Type="datetime" Nullable="false" />
           <Property Name="End" Type="datetime" Nullable="false" />
           <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="Description" Type="text" />
         </EntityType>
         <EntityType Name="CompetitionsUsers">
           <Key>
@@ -275,6 +277,8 @@
           <NavigationProperty Name="Category" Relationship="TopCoderPrototypeModel.FK_Competitions_Categories" FromRole="Competitions" ToRole="Categories" />
           <NavigationProperty Name="CompetetionsProblems" Relationship="TopCoderPrototypeModel.FK_CompetetionsProblems_Competitions" FromRole="Competitions" ToRole="CompetetionsProblems" />
           <NavigationProperty Name="CompetitionsUsers" Relationship="TopCoderPrototypeModel.FK_CompetitionsUsers_Competitions" FromRole="Competitions" ToRole="CompetitionsUsers" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="CompetitionsUser">
           <Key>
@@ -330,8 +334,8 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="JobTitle" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Education" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="JobTitle" Type="String" MaxLength="50" Unicode="true" FixedLength="false" Nullable="true" />
+          <Property Name="Education" Type="String" MaxLength="50" Unicode="true" FixedLength="false" Nullable="true" />
           <NavigationProperty Name="CompetitionsUsers" Relationship="TopCoderPrototypeModel.FK_CompetitionsUsers_Users" FromRole="Users" ToRole="CompetitionsUsers" />
           <NavigationProperty Name="Submissions" Relationship="TopCoderPrototypeModel.FK_Submissions_Users" FromRole="Users" ToRole="Submissions" />
         </EntityType>
@@ -435,7 +439,9 @@
             <ScalarProperty Name="ProblemId" ColumnName="ProblemId" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Competitions"><EntityTypeMapping TypeName="TopCoderPrototypeModel.Competition"><MappingFragment StoreEntitySet="Competitions">
-            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
             <ScalarProperty Name="Start" ColumnName="Start" />
             <ScalarProperty Name="End" ColumnName="End" />

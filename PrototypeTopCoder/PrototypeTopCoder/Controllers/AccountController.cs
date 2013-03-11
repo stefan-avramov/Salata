@@ -27,10 +27,13 @@ namespace PrototypeTopCoder.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				if (DataHelper.UserExists(model.UserName, model.Password))
+                DataHelper.UserType userType = DataHelper.UserExists(model.UserName, model.Password);
+                
+				if (userType != DataHelper.UserType.NotExisting)
 				{
 					Session["isLogged"] = true;
 					Session["username"] = model.UserName;
+                    Session["isAdmin"] = userType == DataHelper.UserType.Admin;
 
 					return RedirectToAction("Index", "Home");
 				}

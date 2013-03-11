@@ -1,0 +1,74 @@
+﻿@model PrototypeTopCoder.Models.CompetitionModel
+
+@{
+    ViewBag.Title = "CreateCompetition";
+}
+
+<h2>CreateCompetition</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>CompetitionModel</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CategoryId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.CategoryId, ((List<PrototypeTopCoder.Category>)ViewBag.Categories).Select(x => new SelectListItem() {Text = x.Name, Value = x.ID.ToString()}))
+            @Html.ValidationMessageFor(model => model.CategoryId)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Start)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Start)
+            @Html.ValidationMessageFor(model => model.Start)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.End)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.End)
+            @Html.ValidationMessageFor(model => model.End)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Duration)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Duration)
+            @Html.ValidationMessageFor(model => model.Duration)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

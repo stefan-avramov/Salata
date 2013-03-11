@@ -1,0 +1,25 @@
+﻿@model System.Collections.Generic.List<PrototypeTopCoder.Models.CompetitionModel>
+           
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@Html.ActionLink("Create competition", "CreateCompetition")
+<table>
+ <tr>
+    <th>Name</th><th>Start</th><th>End</th><th>Duration</th><th>Description</th><th>Edit</th>
+ </tr>
+@foreach (PrototypeTopCoder.Models.CompetitionModel competition in Model)
+{
+    <tr>
+        <td>@competition.Name</td>
+        <td>@competition.Start</td>
+        <td>@competition.End</td>
+        <td>@competition.Duration</td>
+        <td>@competition.Description</td>
+        <td>@Html.ActionLink("Edit","EditCompetition", new {id = competition.ID})</td>
+    </tr>
+}
+
+</table>

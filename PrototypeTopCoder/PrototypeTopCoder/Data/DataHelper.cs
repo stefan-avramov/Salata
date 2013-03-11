@@ -2,11 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using PrototypeTopCoder.Models;
 
 namespace PrototypeTopCoder
 {
 	public static class DataHelper
 	{
+        public enum UserType
+        {
+            NotExisting,
+            User,
+            Admin
+        }
+
 		public static void RegisterUser(string username, string password, string email)
 		{
 			using (TopCoderPrototypeEntities model = new TopCoderPrototypeEntities())
@@ -21,11 +29,91 @@ namespace PrototypeTopCoder
 			}
 		}
 
-		public static bool UserExists(string username, string password)
+        public static UserType UserExists(string username, string password)
 		{
 			using (TopCoderPrototypeEntities model = new TopCoderPrototypeEntities())
 			{
-				return model.Users.Where(x => x.Username == username && x.Password == password).Count() == 1;
+                UserType res = UserType.NotExisting;
+
+				User user = model.Users.Where(x => x.Username == username && x.Password == password).FirstOrDefault();
+                if (user != null)
+                {
+                    if (user.Type == 1)
+                    {
+                        res = UserType.User;
+                    }
+                    else if(user.Type == 2)
+                    {
+                        res = UserType.Admin;
+                    }
+                }
+
+                return res;
+			}
+		}
+
+        public static void AddNewCompetition(Models.CompetitionModel model)
+        {
+            Competition comp = new Competition();
+            comp.CategoryId = model.CategoryId;
+            comp.Start = model.Start;
+            comp.End = model.End;
+            comp.Duration = model.Duration;
+			comp.Name = model.Name;
+			comp.Description = model.Description;
+
+            using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+            {
+                entityModel.AddToCompetitions(comp);
+                entityModel.SaveChanges();
+            }
+        }
+
+        public static List<Models.CompetitionModel> GetAllCompetitions()
+        {
+            using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+            {
+				return entityModel.Competitions.Select(x => new CompetitionModel() { EntityModel = x }).ToList();
+            }
+        }
+
+        internal static CompetitionModel GetCompetition(int id)
+        {
+            using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+            {
+                Competition comp = entityModel.Competitions.Where(x => x.ID == id).FirstOrDefault();
+                if (comp != null)
+                {
+                    return new CompetitionModel(comp);
+                }
+
+                return null;
+            }
+        }
+
+        internal static void EditCompetition(int id, CompetitionModel model)
+        {
+			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+			{
+				Competition comp = entityModel.Competitions.Where(x => x.ID == id).FirstOrDefault();
+				if (comp != null)
+				{
+					comp.CategoryId = model.CategoryId;
+					comp.Start = model.Start;
+					comp.End = model.End;
+					comp.Duration = model.Duration;
+					comp.Name = model.Name;
+					comp.Description = model.Description;
+				}
+				entityModel.SaveChanges();
+			}
+        }
+
+		public static dynamic GetCategories()
+		{
+			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+			{
+				return entityModel.Categories.ToList();
 			}
 		}
 	}
