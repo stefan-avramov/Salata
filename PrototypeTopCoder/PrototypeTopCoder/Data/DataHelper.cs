@@ -10,12 +10,30 @@ namespace PrototypeTopCoder
 {
 	public static class DataHelper
 	{
-        public enum UserType
-        {
-            NotExisting,
-            User,
-            Admin
-        }
+		public static IEnumerable<int> GetEnrolledCompetitionsIds(string username)
+		{
+			if (username != null)
+			{
+				using (TopCoderPrototypeEntities model = new TopCoderPrototypeEntities())
+				{
+					User user = model.Users.Where(x => x.Username == username).FirstOrDefault();
+					if (user != null)
+					{
+						return user.CompetitionsUsers
+							.Where(x => x.UserId == user.ID)
+							.Select(x => x.ID); 
+					}
+				}
+			}
+			return null;
+		}
+
+		public enum UserType
+		{
+			NotExisting,
+			User,
+			Admin
+		}
 
 		public static void RegisterUser(string username, string password, string email)
 		{
@@ -31,70 +49,70 @@ namespace PrototypeTopCoder
 			}
 		}
 
-        public static UserType UserExists(string username, string password)
+		public static UserType UserExists(string username, string password)
 		{
 			using (TopCoderPrototypeEntities model = new TopCoderPrototypeEntities())
 			{
-                UserType res = UserType.NotExisting;
+				UserType res = UserType.NotExisting;
 
 				User user = model.Users.Where(x => x.Username == username && x.Password == password).FirstOrDefault();
-                if (user != null)
-                {
-                    if (user.Type == 1)
-                    {
-                        res = UserType.User;
-                    }
-                    else if(user.Type == 2)
-                    {
-                        res = UserType.Admin;
-                    }
-                }
+				if (user != null)
+				{
+					if (user.Type == 1)
+					{
+						res = UserType.User;
+					}
+					else if(user.Type == 2)
+					{
+						res = UserType.Admin;
+					}
+				}
 
-                return res;
+				return res;
 			}
 		}
 
-        public static void AddNewCompetition(Models.CompetitionModel model)
-        {
-            Competition comp = new Competition();
-            comp.CategoryId = model.CategoryId;
-            comp.Start = model.Start;
-            comp.End = model.End;
-            comp.Duration = model.Duration;
+		public static void AddNewCompetition(Models.CompetitionModel model)
+		{
+			Competition comp = new Competition();
+			comp.CategoryId = model.CategoryId;
+			comp.Start = model.Start;
+			comp.End = model.End;
+			comp.Duration = model.Duration;
 			comp.Name = model.Name;
 			comp.Description = model.Description;
 
-            using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
-            {
-                entityModel.AddToCompetitions(comp);
-                entityModel.SaveChanges();
-            }
-        }
+			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+			{
+				entityModel.AddToCompetitions(comp);
+				entityModel.SaveChanges();
+			}
+		}
 
-        public static List<Models.CompetitionModel> GetAllCompetitions()
-        {
-            using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
-            {
+		public static IList<Models.CompetitionModel> GetAllCompetitions()
+		{
+			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+			{
 				return entityModel.Competitions.Select(x => new CompetitionModel() { EntityModel = x }).ToList();
-            }
-        }
+			}
+		}
 
-        internal static CompetitionModel GetCompetition(int id)
-        {
-            using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
-            {
-                Competition comp = entityModel.Competitions.Where(x => x.ID == id).FirstOrDefault();
-                if (comp != null)
-                {
-                    return new CompetitionModel(comp);
-                }
+		internal static CompetitionModel GetCompetition(int id)
+		{
+			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+			{
+				Competition comp = entityModel.Competitions.Where(x => x.ID == id).FirstOrDefault();
+				if (comp != null)
+				{
+					return new CompetitionModel(comp);
+				}
 
-                return null;
-            }
-        }
+				return null;
+			}
+		}
 
-        internal static void EditCompetition(int id, CompetitionModel model)
-        {
+		internal static void EditCompetition(int id, CompetitionModel model)
+		{
 			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
 			{
 				Competition comp = entityModel.Competitions.Where(x => x.ID == id).FirstOrDefault();
@@ -109,7 +127,7 @@ namespace PrototypeTopCoder
 				}
 				entityModel.SaveChanges();
 			}
-        }
+		}
 
 		public static dynamic GetCategories()
 		{

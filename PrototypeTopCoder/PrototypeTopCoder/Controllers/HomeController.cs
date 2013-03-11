@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using PrototypeTopCoder.Models;
 
 namespace PrototypeTopCoder.Controllers
 {
@@ -10,9 +9,13 @@ namespace PrototypeTopCoder.Controllers
 	{
 		public ActionResult Index()
 		{
-			ViewBag.Message = "Welcome to ASP.NET MVC!";
+			ViewBag.Message = "Upcoming competitions";
 
-			return View();
+			return View(new HomeModel()
+			{
+				Competitions = DataHelper.GetAllCompetitions(),
+				EnrolledCompetitions = DataHelper.GetEnrolledCompetitionsIds(Session["username"] as string)
+			});
 		}
 
 		public ActionResult About()

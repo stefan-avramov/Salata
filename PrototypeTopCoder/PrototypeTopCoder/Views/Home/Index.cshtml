@@ -1,8 +1,22 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model PrototypeTopCoder.Models.HomeModel
+
+@{
+	ViewBag.Title = "Home Page";
 }
 
 <h2>@ViewBag.Message</h2>
-<p>
-    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-</p>
+<table>
+	<tr>
+		<th>Name</th><th>Start</th><th>End</th><th>Duration</th><th>Description</th>
+	</tr>
+	@foreach (PrototypeTopCoder.Models.CompetitionModel competition in Model.Competitions)
+	{
+		<tr>
+			<td>@competition.Name</td>
+			<td>@competition.Start</td>
+			<td>@competition.End</td>
+			<td>@competition.Duration</td>
+			<td>@competition.Description</td>
+		</tr>
+	}
+</table>
