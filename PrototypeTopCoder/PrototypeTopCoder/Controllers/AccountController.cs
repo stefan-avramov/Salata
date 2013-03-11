@@ -11,29 +11,23 @@ namespace PrototypeTopCoder.Controllers
 {
 	public class AccountController : Controller
 	{
-		//
-		// GET: /Account/LogOn
-
 		public ActionResult LogOn()
 		{
 			return View();
 		}
-
-		//
-		// POST: /Account/LogOn
 
 		[HttpPost]
 		public ActionResult LogOn(LogOnModel model, string returnUrl)
 		{
 			if (ModelState.IsValid)
 			{
-                DataHelper.UserType userType = DataHelper.UserExists(model.UserName, model.Password);
-                
+				DataHelper.UserType userType = DataHelper.UserExists(model.UserName, model.Password);
+
 				if (userType != DataHelper.UserType.NotExisting)
 				{
 					Session["isLogged"] = true;
 					Session["username"] = model.UserName;
-                    Session["isAdmin"] = userType == DataHelper.UserType.Admin;
+					Session["isAdmin"] = userType == DataHelper.UserType.Admin;
 
 					return RedirectToAction("Index", "Home");
 				}

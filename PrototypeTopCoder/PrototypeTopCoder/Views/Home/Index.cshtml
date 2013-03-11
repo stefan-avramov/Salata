@@ -9,6 +9,10 @@
 	<tr>
 		<th>Name</th><th>Start</th><th>End</th><th>Duration</th><th>Description</th>
 	</tr>
+	@{
+		var enrolledCompetitions = Model.EnrolledCompetitions;
+	}
+
 	@foreach (PrototypeTopCoder.Models.CompetitionModel competition in Model.Competitions)
 	{
 		<tr>
@@ -17,6 +21,17 @@
 			<td>@competition.End</td>
 			<td>@competition.Duration</td>
 			<td>@competition.Description</td>
+			@if (Session["username"] != null)
+			{
+				if (enrolledCompetitions.Contains(competition.ID))
+				{
+						<td>Enrolled!</td>
+				}
+				else
+				{
+						<td>@Html.ActionLink("Enroll", "EnrollForCompetition", new { id = competition.ID })</td>
+				}
+			}
 		</tr>
 	}
 </table>

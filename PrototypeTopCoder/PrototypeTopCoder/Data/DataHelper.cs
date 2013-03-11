@@ -10,19 +10,35 @@ namespace PrototypeTopCoder
 {
 	public static class DataHelper
 	{
+		public static void EnrollUserForCompetition(string username, int competitionId)
+		{
+			using (TopCoderPrototypeEntities model = new TopCoderPrototypeEntities())
+			{
+				var user = GetUser(model, username);
+				if (user != null)
+				{
+					CompetitionsUser competitionUser = model.CompetitionsUsers
+						.Where(x => x.UserId == user.ID && x.CompetitionId == competitionId)
+						.FirstOrDefault();
+
+					// evade duplicates
+					if (competitionUser == null)
+					{
+						user.CompetitionsUsers.Add(new CompetitionsUser() { UserId = user.ID, CompetitionId = competitionId });
+						model.SaveChanges();
+					}
+				}
+			}
+		}
+
 		public static IEnumerable<int> GetEnrolledCompetitionsIds(string username)
 		{
-			if (username != null)
+			using (TopCoderPrototypeEntities model = new TopCoderPrototypeEntities())
 			{
-				using (TopCoderPrototypeEntities model = new TopCoderPrototypeEntities())
+				User user = GetUser(model, username);
+				if (user != null)
 				{
-					User user = model.Users.Where(x => x.Username == username).FirstOrDefault();
-					if (user != null)
-					{
-						return user.CompetitionsUsers
-							.Where(x => x.UserId == user.ID)
-							.Select(x => x.ID); 
-					}
+					return user.CompetitionsUsers.Where(x => x.UserId == user.ID).Select(x => x.CompetitionId).ToList();
 				}
 			}
 			return null;
@@ -55,8 +71,8 @@ namespace PrototypeTopCoder
 			{
 				UserType res = UserType.NotExisting;
 
-				User user = model.Users.Where(x => x.Username == username && x.Password == password).FirstOrDefault();
-				if (user != null)
+				User user = GetUser(model, username);
+				if (user != null && user.Password == password)
 				{
 					if (user.Type == 1)
 					{
@@ -147,11 +163,20 @@ namespace PrototypeTopCoder
 				BinaryFormatter bf = new BinaryFormatter();
 				MemoryStream ms = new MemoryStream();
 				bf.Serialize(ms, model);
-				problem.Data =  ms.ToArray();
+				problem.Data = ms.ToArray();
 
 				entityModel.AddToProblems(problem);
 				entityModel.SaveChanges();
 			}
+		}
+
+		private static User GetUser(TopCoderPrototypeEntities model, string username)
+		{
+			if (username != null)
+			{
+				return model.Users.Where(x => x.Username == username).FirstOrDefault();
+			}
+			return null;
 		}
 	}
 }
