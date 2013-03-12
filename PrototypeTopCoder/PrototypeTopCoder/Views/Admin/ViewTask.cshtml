@@ -1,0 +1,16 @@
+﻿@model PrototypeTopCoder.Models.ProblemModel
+           
+@{
+    ViewBag.Title = "ViewTask";
+}
+
+<h2>ViewTask</h2>
+
+@if (Model is PrototypeTopCoder.Models.SimpleTestProblemModel)
+{
+    @Html.Partial("ViewSimpleTestProblem", Model)
+}
+else
+{
+    @Html.Label("Nqma takis");
+}

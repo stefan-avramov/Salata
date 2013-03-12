@@ -12,11 +12,11 @@ namespace PrototypeTopCoder.Models
 	}
 
 	[Serializable]
-	public abstract class ProblemModel
+	public class ProblemModel
 	{
 		public string Title { get; set; }
-
-		public abstract int Evaluate(object answer);
+		public int ID { get; set; }
+		public virtual int Evaluate(object answer) { return 0; }
 	}
 
 	[Serializable]

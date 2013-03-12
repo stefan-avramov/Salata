@@ -189,5 +189,29 @@ namespace PrototypeTopCoder
 			}
 			return null;
 		}
+
+		public static List<ProblemModel> GetAllTasks()
+		{
+			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+			{
+				return entityModel.Problems.Select(x => new ProblemModel(){Title = x.Title, ID = x.ID}).ToList();
+			}
+		}
+
+		public static ProblemModel GetTask(int id)
+		{
+			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+			{
+				Problem pr = entityModel.Problems.Where(x => x.ID == id).FirstOrDefault();
+				if (pr.ProblemType == (int)ProblemType.SimpleTest)
+				{
+					BinaryFormatter formatter = new BinaryFormatter();
+					MemoryStream stream = new MemoryStream(pr.Data);
+					return (SimpleTestProblemModel)formatter.Deserialize(stream); 
+				}
+			}
+
+			return null;
+		}
 	}
 }

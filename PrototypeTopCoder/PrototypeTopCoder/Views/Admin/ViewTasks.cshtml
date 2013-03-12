@@ -1,0 +1,31 @@
+﻿@model IEnumerable<PrototypeTopCoder.Models.ProblemModel>
+
+@{
+    ViewBag.Title = "ViewTasks";
+}
+
+<h2>ViewPage1</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            Title
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td> 
+            @Html.ActionLink("Details", "ViewTask", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

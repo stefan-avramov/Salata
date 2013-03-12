@@ -65,5 +65,16 @@ namespace PrototypeTopCoder.Controllers
 			DataHelper.AddNewProblem(model, id);
 			return RedirectToAction("Index");
 		}
+
+		public ActionResult ViewTasks()
+		{
+			return View(DataHelper.GetAllTasks());
+		}
+
+		public ActionResult ViewTask(int id)
+		{
+			ProblemModel model = DataHelper.GetTask(id);
+			return View(model);
+		}
 	}
 }

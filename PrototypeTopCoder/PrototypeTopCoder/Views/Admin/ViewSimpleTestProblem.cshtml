@@ -1,0 +1,32 @@
+﻿@model PrototypeTopCoder.Models.SimpleTestProblemModel
+
+<fieldset>
+    <legend>SimpleTestProblemModel</legend>
+
+    <div class="display-label">Question</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Question)
+    </div>
+    <div class="display-label">Answers</div>
+    <ol> 
+    @foreach (string option in Model.Options)
+    {
+        <li>
+            @Html.Label(option)
+        </li>
+    }
+    </ol>
+    <div class="display-label">CorrectAnswer</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CorrectAnswer)
+    </div>
+
+    <div class="display-label">Title</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
