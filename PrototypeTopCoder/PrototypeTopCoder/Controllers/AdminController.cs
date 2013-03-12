@@ -51,9 +51,13 @@ namespace PrototypeTopCoder.Controllers
 
 		public ActionResult CreateProblem(int id, int type)
 		{
-			if (type == (int)ProblemType.SimpleTest)
+			if (type == (int)ProblemType.SimpleTestQuestion)
 			{
 				return View("CreateSimpleTestProblem");
+			}
+			else if (type == (int)ProblemType.ComplexTextQuestion)
+			{
+				return View("CreateComplexTestProblem");
 			}
 
 			return RedirectToAction("Index");
@@ -62,7 +66,14 @@ namespace PrototypeTopCoder.Controllers
 		[HttpPost]
 		public ActionResult CreateSimpleTestProblem(SimpleTestProblemModel model, int? id)
 		{
-			DataHelper.AddNewProblem(model, id);
+			DataHelper.AddNewProblem(model, id, ProblemType.SimpleTestQuestion);
+			return RedirectToAction("Index");
+		}
+
+		[HttpPost]
+		public ActionResult CreateComplexTestProblem(ComplexTestProblemModel model, int? id)
+		{
+			DataHelper.AddNewProblem(model, id, ProblemType.ComplexTextQuestion);
 			return RedirectToAction("Index");
 		}
 

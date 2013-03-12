@@ -10,7 +10,11 @@
 {
     @Html.Partial("ViewSimpleTestProblem", Model)
 }
+@if (Model is PrototypeTopCoder.Models.ComplexTestProblemModel)
+{
+    @Html.Partial("ViewComplexTestProblem", Model)
+}
 else
 {
-    @Html.Label("Nqma takis");
+    @Html.Label("Nqma takis")
 }

@@ -153,34 +153,24 @@ namespace PrototypeTopCoder
 			}
 		}
 
-		public static void AddNewProblem(ProblemModel model, int? id)
+		public static void AddNewProblem(ProblemModel model, int? id, ProblemType type)
 		{
 			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
 			{
 				Problem problem = new Problem();
 				problem.Title = model.Title;
+				problem.ProblemType = (int)type;
 
 				BinaryFormatter bf = new BinaryFormatter();
 				MemoryStream ms = new MemoryStream();
 				bf.Serialize(ms, model);
-				problem.Data = ms.ToArray();
-				problem.ProblemType = GetProblemType(model.GetType());
+				problem.Data = ms.ToArray(); 
 
 				entityModel.AddToProblems(problem);
 				entityModel.SaveChanges();
 			}
 		}
-
-		private static int GetProblemType(Type type)
-		{
-			if (type == typeof(SimpleTestProblemModel))
-			{
-				return (int)ProblemType.SimpleTest;
-			}
-
-			return 0;
-		}
-
+ 
 		private static User GetUser(TopCoderPrototypeEntities model, string username)
 		{
 			if (username != null)
@@ -203,11 +193,17 @@ namespace PrototypeTopCoder
 			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
 			{
 				Problem pr = entityModel.Problems.Where(x => x.ID == id).FirstOrDefault();
-				if (pr.ProblemType == (int)ProblemType.SimpleTest)
+				if (pr.ProblemType == (int)ProblemType.SimpleTestQuestion)
 				{
 					BinaryFormatter formatter = new BinaryFormatter();
 					MemoryStream stream = new MemoryStream(pr.Data);
 					return (SimpleTestProblemModel)formatter.Deserialize(stream); 
+				}
+				else if (pr.ProblemType == (int)ProblemType.ComplexTextQuestion)
+				{
+					BinaryFormatter formatter = new BinaryFormatter();
+					MemoryStream stream = new MemoryStream(pr.Data);
+					return (ComplexTestProblemModel)formatter.Deserialize(stream); 
 				}
 			}
 

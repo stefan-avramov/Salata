@@ -1,0 +1,19 @@
+﻿@model PrototypeTopCoder.Models.ComplexTestProblemModel
+
+<fieldset>
+    <legend>ComplexTestProblemModel</legend>
+
+    <div class="display-label">Question</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Question)
+    </div>
+
+    <div class="display-label">Title</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
