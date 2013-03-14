@@ -21,7 +21,7 @@ namespace PrototypeTopCoder
 						.Where(x => x.UserId == user.ID && x.CompetitionId == competitionId)
 						.FirstOrDefault();
 
-					// evade duplicates
+					// evade duplicates - mad evasion
 					if (competitionUser == null)
 					{
 						user.CompetitionsUsers.Add(new CompetitionsUser() { UserId = user.ID, CompetitionId = competitionId });
@@ -30,20 +30,7 @@ namespace PrototypeTopCoder
 				}
 			}
 		}
-
-		public static IEnumerable<int> GetEnrolledCompetitionsIds(string username)
-		{
-			using (TopCoderPrototypeEntities model = new TopCoderPrototypeEntities())
-			{
-				User user = GetUser(model, username);
-				if (user != null)
-				{
-					return user.CompetitionsUsers.Where(x => x.UserId == user.ID).Select(x => x.CompetitionId).ToList();
-				}
-			}
-			return null;
-		}
-
+		
 		public enum UserType
 		{
 			NotExisting,
@@ -105,11 +92,47 @@ namespace PrototypeTopCoder
 			}
 		}
 
-		public static IList<Models.CompetitionModel> GetAllCompetitions()
+		public static List<CompetitionModel> GetAllCompetitions()
 		{
 			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
 			{
 				return entityModel.Competitions.Select(x => new CompetitionModel() { EntityModel = x }).ToList();
+			}
+		}
+
+		public static Dictionary<Models.CompetitionModel, UserCompetitionState> GetAllCompetitions(string username)
+		{
+			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+			{ 
+				Dictionary<CompetitionModel, UserCompetitionState> result = new Dictionary<CompetitionModel, UserCompetitionState>();
+
+				foreach(Competition competition in entityModel.Competitions)	
+				{
+					CompetitionModel model = new CompetitionModel() { EntityModel = competition };
+					UserCompetitionState state = UserCompetitionState.NotEnrolled;
+					CompetitionsUser cuser = entityModel.CompetitionsUsers.Where(x => x.User.Username == username && x.CompetitionId == competition.ID).FirstOrDefault();
+					
+					if (cuser == null)
+					{
+						state = UserCompetitionState.NotEnrolled;
+					}
+					else if (cuser.Start == null)
+					{
+						state = UserCompetitionState.NotStarted;
+					}
+					else if ((DateTime.Now - cuser.Start.Value) < TimeSpan.FromMinutes(competition.Duration))
+					{
+						state = UserCompetitionState.InProgress;
+					}
+					else
+					{
+						state = UserCompetitionState.Ended;
+					}
+
+					result.Add(model, state);
+				}
+
+				return result;
 			}
 		}
 
@@ -209,5 +232,6 @@ namespace PrototypeTopCoder
 
 			return null;
 		}
+		 
 	}
 }

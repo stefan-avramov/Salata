@@ -6,6 +6,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrototypeTopCoder.Models
 {
+	public enum UserCompetitionState
+	{
+		NotEnrolled,
+		NotStarted,
+		InProgress,
+		Ended
+	}
+
+	public enum CompetitionState
+	{
+		NotStarted,
+		InProgress,
+		Ended
+	}
+
     public class CompetitionModel
     {
 		public int ID { get; private set; }
@@ -32,6 +47,16 @@ namespace PrototypeTopCoder.Models
 		[DataType(DataType.MultilineText)]
 		[Display(Name = "Description")]
 		public string Description { get; set; }
+
+		public CompetitionState State
+		{
+			get
+			{
+				return Start > DateTime.Now ? CompetitionState.NotStarted : 
+					End > DateTime.Now ? CompetitionState.InProgress : 
+					CompetitionState.Ended;
+			}
+		}
 
         public CompetitionModel(Competition data)
         {

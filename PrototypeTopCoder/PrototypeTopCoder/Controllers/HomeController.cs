@@ -11,15 +11,8 @@ namespace PrototypeTopCoder.Controllers
 		public ActionResult Index()
 		{
 			ViewBag.Message = "Upcoming competitions";
-
-			var enrolledCompetitions = DataHelper.GetEnrolledCompetitionsIds(Session["username"] as string);
-
-			var model = new HomeModel()
-				{
-					Competitions = DataHelper.GetAllCompetitions(),
-					EnrolledCompetitions = enrolledCompetitions != null ? new HashSet<int>(enrolledCompetitions) : new HashSet<int>()
-				};
-			return View(model);
+			 
+			return View( DataHelper.GetAllCompetitions(Session["username"] as string) );
 		}
 
 		[HttpGet]
