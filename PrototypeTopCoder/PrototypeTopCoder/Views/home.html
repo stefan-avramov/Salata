@@ -2,19 +2,102 @@
 <html>
 <head>
     <title>Home page</title>
+    <link rel="stylesheet" href="../Content/bootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="../Content/bootstrap-responsive.css" type="text/css"/>
     <link href="../Content/home.css" rel="stylesheet" type="text/css">
     <link href="../Content/contest.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../Scripts/jquery.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap.js"></script>
 </head>
 <body>
-    <div class="sideMenu">
-        <div class="header">Better</div>
-        <div class="active">> Home</div>
-        <div>> Contests</div>
-        <div>> Event Calendar</div>
-        <div>> Statistics</div>
-        <div>> About</div>
+    <div class="headerHolder">
+        <header>
+            <div class="navbar">
+                <div class="logo">
+                    <img src="../Content/images/logo.png"/>
+                    <em>Better</em>
+                </div>
+                <div class="right">
+                    <div>
+                        <div class="welcome">Welcome, Ivan</div>
+                        <div class="settingsWheel">
+                            <div>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="../Content/images/wheel.png" class="settingsWheel"/>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Profile</a></li>
+                                    <li><a href="#">Use as a Teacher</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Log out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
     </div>
     <div class="container">
+        <div class="span2 sideBar">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Contests</a></li>
+                <li><a href="#">Event Calendar</a></li>
+                <li><a href="#">Statistics</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </div>
+        <div class="content span9">
+            <div class="header">Activity</div>
+            <div class="contestList">
+                <div class="header">Upcoming contests</div>
+                <table>
+                    <tr>
+                        <td class="name">First contest</td>
+                        <td class="time">March 19th, 5PM - 7PM</td>
+                        <td class="register"><a href="#">Register</a></td>
+                    </tr>
+                    <tr>
+                        <td class="name">Second contest</td>
+                        <td class="time">April 4th, 3PM - 3:45PM</td>
+                        <td class="register"><a href="#">Register</a></td>
+                    </tr>
+                    <tr>
+                        <td class="name">Second contest</td>
+                        <td class="time">April 4th, 3PM - 3:45PM</td>
+                        <td class="register"><a href="#">Register</a></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="showAll">
+                            <a href="#">Show all contests...</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="stream">
+                <div class="event">
+                    <div class="header">
+                        Stefan Avramov
+                        <div class="time">2h ago</div>
+                    </div>
+                    <div class="content">
+                        Stefan just solved <em>seven</em> Geography problems with tags Bulgaria, California and 2 others. (#5435, #5562 and 5 more)
+                    </div>
+                </div>
+                <div class="event">
+                    <div class="header">
+                        Ivan Todorov
+                        <div class="time">1d ago</div>
+                    </div>
+                    <div class="content">
+                        Ivan <em>won</em> the contest "First biology contest" by solving <em>14 out of 15</em> problems!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mainContent container" style="display: none;">
         <div class="header">Activity</div>
         <div class="contestList">
             <div class="header">Upcoming contests</div>

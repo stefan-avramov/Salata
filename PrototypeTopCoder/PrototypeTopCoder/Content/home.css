@@ -1,29 +1,108 @@
 body {
-    font-family: Calibri, sans-serif;
+    font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+    background-color: rgb(222, 243, 242);
+    padding-bottom: 100px;
+}
+
+.headerHolder {
+    height: 40px;
+}
+
+header {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    height: 40px;
+    background-color: rgb(241, 149, 49);
+    z-index: 500;
+}
+
+header > .navbar {
+    width: 1000px;
+    margin: 0px auto;
+    padding: 8px;
+    padding-top: 10px;
+    font-size: 20px;
+    position: relative;
+}
+
+.navbar .logo {
+    padding-left: 110px;
+}
+
+.logo img {
+    height: 30px;
+    margin-top: -10px;
+}
+
+.navbar em {
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+.navbar > .right {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.settingsWheel {
+    height: 12px;
+    width: 12px;
+    padding-top: 2px;
+    padding-left: 3px;
+    float: left;
+}
+
+.mainContent {
+    position: relative;
+    width: 800px;
+    margin: 0 auto;
 }
 
 .container {
-    position: fixed;
-    left: 200px;
+    position: relative;
+    top: 40px;
 }
 
-.container > .header {
-    font-size: 30px;
-    padding-top: 10px;
+.sideBar {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.sideBar li {
+    padding: 7px;
+    display: block;
+}
+
+.sideBar li a {
+    color: #000000;
+}
+
+.sideBar li:hover {
+    background-color: #0099cc;
+}
+
+.content > .header {
+    font-size: 24px;
     padding-bottom: 20px;
+    padding-top: 7px;
     text-align: left;
 }
 
 .contestList > .header {
-    background-color: #f1e2c3;
+    background-color: rgb(250, 229, 187);
     text-align: center;
-    padding: 5px;
-    font-size: 20px;
+    padding: 10px;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .contestList {
     border: solid 1px #f1e2c3;
-    padding-bottom: 10px;
 }
 
 .contestList > .contest {
@@ -32,22 +111,23 @@ body {
 
 td, th {
     border:  1px #f1e2c3;
-    padding-left: 10px;
+    padding: 10px;
     margin: 5px;
+    font-size: 16px;
 }
 
 tr {
-    height: 25px;
+    height: 30px;
 }
 
 table {
     border-collapse: collapse;
     border-spacing: 5px;
-    margin-top: 5px;
+    width: 100%;
 }
 
 td.name {
-    width: 250px;
+    width: 150px;
 }
 
 td.time {
@@ -63,9 +143,56 @@ td.register {
 
 td.showAll {
     padding-top: 10px;
-    text-align: center;
+    text-align: right;
 }
 
 tr:nth-child(even) {
     background-color: #fffbea;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.welcome {
+    font-size: 16px;
+    float: left;
+}
+
+.stream {
+    margin-top: 30px;
+}
+
+.event {
+    margin-top: 10px;
+    font-size: 15px;
+    padding: 10px;
+    position: relative;
+    background-color: #fcfce3;
+}
+
+.event:hover {
+    background-color: #ebebd2;
+}
+
+.event em {
+    font-weight: bold;
+    font-size: 14.5px;
+}
+
+.event > .header {
+    font-weight: bold;
+}
+
+.event .time {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-weight: normal;
+    color: gray;
+    font-size: 13px;
+}
+
+.event .content {
+    padding-top: 5px;
 }
