@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -205,6 +206,7 @@ namespace PrototypeTopCoder
         private ObjectSet<User> _Users;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -272,11 +274,11 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -303,6 +305,7 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -357,6 +360,7 @@ namespace PrototypeTopCoder
         partial void OnNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -383,6 +387,7 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -411,6 +416,7 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -489,6 +495,7 @@ namespace PrototypeTopCoder
         partial void OnProblemIdChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -569,6 +576,7 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -603,6 +611,7 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -777,6 +786,7 @@ namespace PrototypeTopCoder
         partial void OnDescriptionChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -863,6 +873,7 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -891,6 +902,7 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -993,6 +1005,7 @@ namespace PrototypeTopCoder
         partial void OnStartChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1073,6 +1086,7 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1105,6 +1119,7 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1231,6 +1246,7 @@ namespace PrototypeTopCoder
         partial void OnDataChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1279,6 +1295,7 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1311,6 +1328,7 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1461,6 +1479,7 @@ namespace PrototypeTopCoder
         partial void OnAnswerChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1541,6 +1560,7 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1569,6 +1589,7 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1695,6 +1716,7 @@ namespace PrototypeTopCoder
         partial void OndefinitionChanged();
 
         #endregion
+
     
     }
     
@@ -1728,6 +1750,7 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1902,6 +1925,7 @@ namespace PrototypeTopCoder
         partial void OnEducationChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1950,8 +1974,10 @@ namespace PrototypeTopCoder
         }
 
         #endregion
+
     }
 
     #endregion
+
     
 }
