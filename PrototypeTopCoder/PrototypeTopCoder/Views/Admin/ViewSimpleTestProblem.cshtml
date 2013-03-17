@@ -5,7 +5,7 @@
 
     <div class="display-label">Question</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Question)
+        @Html.Raw(@HttpUtility.HtmlDecode(Model.Question))
     </div>
     <div class="display-label">Answers</div>
     <ol> 
