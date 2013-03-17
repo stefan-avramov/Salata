@@ -1,5 +1,6 @@
 ﻿var fileBrowser = function (fieldName, url, type, win) {
-    var cmsURL = '@Url.Action("Index", "Upload")';
+    // Depends on having the uploadUrl variable declared globally !!!
+    var cmsURL = uploadUrl;
     if (cmsURL.indexOf("?") < 0) {
         //add the type as the only query parameter
         cmsURL = cmsURL + "?type=" + type;
