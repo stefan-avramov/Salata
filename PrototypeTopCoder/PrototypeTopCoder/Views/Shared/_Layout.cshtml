@@ -3,7 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap-responsive.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/main.css")" rel="stylesheet" type="text/css" />
+@*    <link href="@Url.Content("~/Content/home.css")" rel="stylesheet" type="text/css" />*@
     <script src="@Url.Content("~/Scripts/jquery-1.9.1.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/tinymce/tiny_mce.js")" type="text/javascript"></script>
@@ -11,32 +15,37 @@
         uploadUrl = '@Url.Action("Index", "Upload")';
     </script>
     <script src="@Url.Content("~/Scripts/custom/TinyMCE.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.js")" type="text/javascript"></script>
 </head>
 <body>
-    <div class="page">
-        <header>
-            <div id="title">
-                <h1>My MVC Application</h1>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="row">
+                <div class="span3 offset2 logo">
+                    <img src="@Url.Content("~/Content/images/logo.png")" alt="better logo" />
+                    <span>better</span>
+                </div>
+                <div class="span3 offset1 logOn">
+                    @Html.Partial("_LogOnPartial")
+                </div>
             </div>
-            <div id="logindisplay">
-                @Html.Partial("_LogOnPartial")
-            </div>
-            <nav>
-                <ul id="menu">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    @if (Session["isAdmin"] != null && (bool)Session["isAdmin"] == true)
-                    {
-                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-                    }
-                </ul>
-            </nav>
-        </header>
-        <section id="main">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <ul class="offset2 span2 menu">
+            <li>@Html.ActionLink("home", "Index", "Home")</li>
+            <li><a href="#">contests</a></li>
+            <li><a href="#">event calendar</a></li>
+            <li><a href="#">statistics</a></li>
+            <li>@Html.ActionLink("about", "About", "Home")</li>
+            @if (Session["isAdmin"] != null && (bool)Session["isAdmin"] == true)
+            {
+                <li>@Html.ActionLink("admin", "Index", "Admin")</li>
+            }
+        </ul>
+        <div class="span7">
             @RenderBody()
-        </section>
-        <footer>
-        </footer>
+        </div>
     </div>
 </body>
 </html>

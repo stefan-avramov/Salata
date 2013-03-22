@@ -1,7 +1,21 @@
-﻿@if(Object.Equals(Session["isLogged"], true)) {
-    <text>Welcome <strong>@Session["username"]</strong>!
-    [ @Html.ActionLink("Log Off", "LogOff", "Account") ]</text>
+﻿@if(Object.Equals(Session["isLogged"], true))
+{
+    <text>
+        welcome, @Session["username"]!
+   
+        <div class="welcome">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img src="@Url.Content("~/Content/images/wheel.png")" alt="Settings" class="settingsWheel" />
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#">profile</a></li>
+                <li><a href="#">use as a teacher</a></li>
+                <li class="divider"></li>
+                <li>@Html.ActionLink("log off", "LogOff", "Account")</li>
+            </ul>
+        </div>
+    </text>
 }
 else {
-    @:[ @Html.ActionLink("Log On", "LogOn", "Account") ]
+    @:@Html.ActionLink("Log On", "LogOn", "Account")
 }

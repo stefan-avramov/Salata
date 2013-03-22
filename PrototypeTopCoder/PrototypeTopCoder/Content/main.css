@@ -1,0 +1,88 @@
+﻿body {
+    color: #fff;
+    background-color: #ebebeb;
+}
+
+.navbar-inner {
+    height: 60px;
+    border: 0px;
+    border-radius: 0px;
+    background: #199bd8;
+}
+
+.logo {
+    font-size: 26px;
+    margin-top: 5px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.logo span {
+    margin-left: 5px;
+}
+
+.logOn {
+    padding-top: 20px;
+    text-align: right;
+    font-size: 20px;
+}
+
+
+.dropdown-menu {
+    border-radius: 0px;
+    background: #5EBFE8;
+    color: #fff;
+}
+
+.welcome {
+    display: inline;
+    position: relative;
+    padding-bottom: 2px;
+}
+
+.welcome .dropdown-menu {
+    left: -140px;
+}
+
+.welcome li a, .menu li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    padding-right: 10px;
+}
+
+.settingsWheel {
+    height: 16px;
+}
+
+.menu {
+    background-color: #199bd8;
+    width: 120px;
+}
+
+.menu li {
+    display: block;
+    padding-left: 10px;
+}
+
+.menu li:not(:last-child) {
+    border-bottom: solid 1px #188bd8;
+}
+
+.menu li:hover {
+    background-color: #2e3092;
+}
+
+.menu li a {
+    display: block;
+}
+
+@media (max-width: 767px) {
+    .logOn {
+        position: absolute;
+        top: 0px;
+        right: 20px;
+    }
+}
