@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CompetitionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="DataModel.Designer.cs">
@@ -95,6 +96,7 @@
     <Compile Include="Infrastructure\FineUploadResult.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CompetitionModel.cs" />
+    <Compile Include="Models\InsideCompetitionModel.cs" />
     <Compile Include="Models\ProblemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -455,6 +457,7 @@
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_full_compressed.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_full.cshtml" />
+    <Content Include="Views\Competition\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

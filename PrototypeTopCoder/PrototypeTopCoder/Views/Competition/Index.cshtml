@@ -1,0 +1,26 @@
+﻿@model PrototypeTopCoder.Models.InsideCompetitionModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<fieldset>
+    <legend>InsideCompetitionModel</legend>
+
+    <div class="display-label">TimeLeft</div>
+    <div class="display-field">
+       @if (Model.TimeLeft.TotalHours > 0)
+       {
+            @(((int)Model.TimeLeft.TotalHours).ToString()) <text>hours</text>
+           @(((int)Model.TimeLeft.Minutes).ToString()) <text>minutes</text>
+           @(((int)Model.TimeLeft.Seconds).ToString()) <text>seconds</text>
+       }
+       else
+       {
+           <text>Finished</text>
+       }
+
+    </div>
+</fieldset> 

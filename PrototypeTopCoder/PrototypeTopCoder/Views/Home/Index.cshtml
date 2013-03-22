@@ -17,7 +17,9 @@
     @foreach (KeyValuePair<PrototypeTopCoder.Models.CompetitionModel, PrototypeTopCoder.Models.UserCompetitionState> entry in Model)
     {
         PrototypeTopCoder.Models.CompetitionModel competition = entry.Key;
-        PrototypeTopCoder.Models.UserCompetitionState state = entry.Value;
+        PrototypeTopCoder.Models.UserCompetitionState userState = entry.Value;
+        PrototypeTopCoder.Models.CompetitionState competitionState = competition.State;
+        
         <tr>
             <td>@competition.Name</td>
             <td>@competition.Start</td>
@@ -26,37 +28,41 @@
             <td>@competition.Description</td>
             @if (Session["username"] != null)
             {
-                if (state == PrototypeTopCoder.Models.UserCompetitionState.NotEnrolled)
+                if (competitionState == PrototypeTopCoder.Models.CompetitionState.Ended)
                 {
-                    if (competition.State == PrototypeTopCoder.Models.CompetitionState.Ended)
-                    {
-                        <td>Finished!</td>
-                    }
-                    else
-                    {
+                    <td>Finished!</td>
+                }
+                else if (competitionState == PrototypeTopCoder.Models.CompetitionState.NotStarted)
+                {
+                    <td>Starts in ~ @((int)(competition.Start - System.DateTime.Now).TotalHours) hours</td>
+                
+                    if (userState == PrototypeTopCoder.Models.UserCompetitionState.NotEnrolled)
+                    { 
                         <td>@Html.ActionLink("Enroll", "EnrollForCompetition", new { id = competition.ID })</td>
                     }
                 }
-                else if (state == PrototypeTopCoder.Models.UserCompetitionState.NotStarted)
-                {
-                    if (competition.State == PrototypeTopCoder.Models.CompetitionState.InProgress)
-                    {
-                            <td>@Html.ActionLink("Start", "EnterCompetition", new { id = competition.ID })</td>
+                else if (competitionState == PrototypeTopCoder.Models.CompetitionState.InProgress)
+                { 
+                    <td>Ends in ~ @((int)(competition.End - System.DateTime.Now).TotalHours) hours</td>
+                                    
+                    if (userState == PrototypeTopCoder.Models.UserCompetitionState.NotEnrolled)
+                    { 
+                        <td>@Html.ActionLink("Enroll", "EnrollForCompetition", new { id = competition.ID })</td>
                     }
-                }
-                else if (state == PrototypeTopCoder.Models.UserCompetitionState.InProgress)
-                {
-                    if (competition.State == PrototypeTopCoder.Models.CompetitionState.InProgress)
-                    {
-                      <td>@Html.ActionLink("Enroll", "EnterCompetition", new { id = competition.ID })</td>
+                    else if (userState == PrototypeTopCoder.Models.UserCompetitionState.NotStarted)
+                    { 
+                        <td>@Html.ActionLink("Enter Now", "EnterCompetition", new { id = competition.ID })</td> 
                     }
-                }
-                else
-                {
-                    <td>Finished!</td>
+                    else if (userState == PrototypeTopCoder.Models.UserCompetitionState.InProgress)
+                    { 
+                        <td>@Html.ActionLink("Continue", "EnterCompetition", new { id = competition.ID })</td>
+                    }
+                    else if (userState == PrototypeTopCoder.Models.UserCompetitionState.Ended)
+                    {
+                        <td>Session inished!</td>
+                    }
                 }
             }
         </tr>
     }
 </table>
-        

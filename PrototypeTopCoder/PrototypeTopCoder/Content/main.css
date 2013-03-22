@@ -1,6 +1,9 @@
 ﻿body {
-    color: #fff;
+    color: #444444;
     background-color: #ebebeb;
+    font-family:Segoe UI;
+    font-weight:lighter; 
+    font-size:12pt;
 }
 
 .navbar-inner {

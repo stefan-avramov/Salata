@@ -22,6 +22,13 @@ namespace PrototypeTopCoder.Controllers
 			return RedirectToAction("Index");
 		}
 
+		[HttpGet]
+		public ActionResult EnterCompetition(int id)
+		{
+			DataHelper.StartCompetitionForUser(Session["username"] as string, id);
+			return RedirectToAction("Index", "Competition", new { id = id });
+		}
+
 		public ActionResult About()
 		{
 			return View();

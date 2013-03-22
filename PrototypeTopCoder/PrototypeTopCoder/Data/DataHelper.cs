@@ -232,6 +232,37 @@ namespace PrototypeTopCoder
 
 			return null;
 		}
-		 
+
+
+		internal static void StartCompetitionForUser(string username, int competitionId)
+		{
+			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+			{
+				CompetitionsUser cuser = entityModel.CompetitionsUsers.
+					Where(x => x.User.Username == username && x.CompetitionId == competitionId).FirstOrDefault();
+				if (cuser != null && cuser.Start == null)
+				{
+					cuser.Start = DateTime.Now;
+					entityModel.SaveChanges();
+				} 
+			}
+		}
+
+		internal static InsideCompetitionModel GetInsideCompetitionModel(string username, int competitionId)
+		{
+			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+			{
+				CompetitionsUser cuser = entityModel.CompetitionsUsers.
+					Where(x => x.User.Username == username && x.CompetitionId == competitionId).FirstOrDefault();
+				if (cuser != null && cuser.Start.HasValue)
+				{
+					InsideCompetitionModel model = new InsideCompetitionModel();
+					model.TimeLeft = TimeSpan.FromMinutes(cuser.Competition.Duration) - (DateTime.Now - cuser.Start.Value);
+					return model;
+				}
+			}
+
+			return null;
+		}
 	}
 }
