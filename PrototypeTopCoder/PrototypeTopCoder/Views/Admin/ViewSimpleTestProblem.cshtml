@@ -5,7 +5,7 @@
 
     <div class="display-label">Question</div>
     <div class="display-field">
-        @Html.Raw(@HttpUtility.HtmlDecode(Model.Question))
+        @Html.Raw(Model.Question)
     </div>
     <div class="display-label">Answers</div>
     <ol> 
@@ -28,5 +28,6 @@
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Delete", "DeleteTask", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "ViewTasks", "Admin")
 </p>

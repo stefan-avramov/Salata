@@ -33,5 +33,10 @@ tinyMCE.init({
     theme_advanced_statusbar_location: "bottom",
     theme_advanced_resizing: true,
     plugins: 'inlinepopups',
-    encoding: 'xml'
+    encoding: 'xml',
+    setup: function (ed) {
+        ed.onSaveContent.add(function (ed, o) {
+            o.content = o.content.replace(/&#39/g, "&apos");
+        });
+    }
 });

@@ -64,6 +64,13 @@
             @Html.ValidationMessageFor(model => model.Description)
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SelectedProblems)
+        </div>
+        <div>
+            @Html.ListBoxFor(model => model.SelectedProblems, Model.ProblemList)
+        </div>
+
         <p>
             <input type="submit" value="Save" />
         </p>

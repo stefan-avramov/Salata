@@ -20,7 +20,7 @@
         <td>@competition.Start</td>
         <td>@competition.End</td>
         <td>@competition.Duration</td>
-        <td>@competition.Description</td>
+        <td>@Html.Raw(competition.Description)</td>
         <td>@Html.ActionLink("Edit","EditCompetition", new {id = competition.ID})</td>
     </tr>
 }

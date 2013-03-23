@@ -25,7 +25,7 @@
             <td>@competition.Start</td>
             <td>@competition.End</td>
             <td>@competition.Duration</td>
-            <td>@competition.Description</td>
+            <td>@Html.Raw(competition.Description)</td>
             @if (Session["username"] != null)
             {
                 if (competitionState == PrototypeTopCoder.Models.CompetitionState.Ended)

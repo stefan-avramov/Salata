@@ -25,14 +25,19 @@ namespace PrototypeTopCoder.Models
 			{
 				return ProblemType.None;
 			}
-		}
+        }
+
+        private string _Question;
+        public string Question
+        {
+            get { return HttpUtility.HtmlDecode(_Question); }
+            set { _Question = value; }
+        }
 	}
 
 	[Serializable]
 	public class SimpleTestProblemModel : ProblemModel
 	{
-		public string Question { get; set; }
-
 		public List<string> Options { get; set; }
 
 		public int CorrectAnswer { get; set; }
@@ -54,8 +59,6 @@ namespace PrototypeTopCoder.Models
 	[Serializable]
 	public class ComplexTestProblemModel : ProblemModel
 	{
-		public string Question { get; set; }
-
 		public List<string> Options { get; set; }
 
 		public List<int> CorrectAnswers { get; set; }

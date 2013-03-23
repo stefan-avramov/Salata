@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace PrototypeTopCoder.Models
 {
@@ -28,11 +29,11 @@ namespace PrototypeTopCoder.Models
 		[Display(Name = "Category")]
         public int CategoryId { get; set; }
 
-		[DataType(DataType.Date)]
+		[DataType(DataType.DateTime)]
 		[Display(Name = "Start date")]
         public DateTime Start { get; set; }
 
-		[DataType(DataType.Date)]
+		[DataType(DataType.DateTime)]
 		[Display(Name = "End date")]
 		public DateTime End { get; set; }
 		 
@@ -44,9 +45,18 @@ namespace PrototypeTopCoder.Models
 		[StringLength(256)]
 		public string Name { get; set; }
 
+        private string _Description;
 		[DataType(DataType.MultilineText)]
 		[Display(Name = "Description")]
-		public string Description { get; set; }
+		public string Description
+        {
+            get { return HttpUtility.HtmlDecode(_Description); }
+            set { this._Description = value; }
+        }
+
+        public MultiSelectList ProblemList { get; set; }
+
+        public int[] SelectedProblems { get; set; }
 
 		public CompetitionState State
 		{
@@ -68,6 +78,16 @@ namespace PrototypeTopCoder.Models
 
 			this.Name = data.Name;
 			this.Description = data.Description;
+
+            var problems = DataHelper.GetTasks(this.ID);
+            this.SelectedProblems = problems.Select(x => x.ID).ToArray();
+            this.ProblemList = GetProblems(this.SelectedProblems);
+        }
+
+        private MultiSelectList GetProblems(int[] selectedProblems)
+        {
+            var tasks = DataHelper.GetAllTasks();
+            return new MultiSelectList(tasks, "id", "Title", selectedProblems);
         }
 
 		public Competition EntityModel
@@ -90,6 +110,10 @@ namespace PrototypeTopCoder.Models
         public CompetitionModel()
         {
 			this.Name = String.Empty;
+            this.Start = DateTime.Now;
+            this.End = DateTime.Now;
+
+            this.ProblemList = GetProblems(null);
         }
     }
 }

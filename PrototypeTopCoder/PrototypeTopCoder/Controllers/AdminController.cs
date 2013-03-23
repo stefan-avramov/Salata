@@ -26,7 +26,7 @@ namespace PrototypeTopCoder.Controllers
 		public ActionResult CreateCompetition()
 		{
 			ViewBag.Categories = DataHelper.GetCategories();
-			return View();
+			return View(new CompetitionModel());
 		}
 
 		[HttpPost]
@@ -76,6 +76,12 @@ namespace PrototypeTopCoder.Controllers
 			DataHelper.AddNewProblem(model, id, ProblemType.ComplexTextQuestion);
 			return RedirectToAction("Index");
 		}
+
+        public ActionResult DeleteTask(int id)
+        {
+            DataHelper.DeleteProblem(id);
+            return RedirectToAction("ViewTasks");
+        }
 
 		public ActionResult ViewTasks()
 		{

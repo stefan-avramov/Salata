@@ -1,0 +1,27 @@
+﻿@model IEnumerable<PrototypeTopCoder.Models.ProblemModel>
+@{
+    ViewBag.Title = "AddProblems";
+}
+
+<h2>AddProblems</h2>
+
+<table>
+    <tr>
+        <th>
+            Title
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td> 
+            @Html.ActionLink("Details", "AddProblem", new { id=item.ID, competitionID=@ViewContext.RouteData.Values["id"] })
+        </td>
+    </tr>
+}
+
+</table>
