@@ -4,23 +4,19 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<fieldset>
-    <legend>InsideCompetitionModel</legend>
-
-    <div class="display-label">TimeLeft</div>
-    <div class="display-field">
-       @if (Model.TimeLeft.TotalHours > 0)
-       {
-            @(((int)Model.TimeLeft.TotalHours).ToString()) <text>hours</text>
-           @(((int)Model.TimeLeft.Minutes).ToString()) <text>minutes</text>
-           @(((int)Model.TimeLeft.Seconds).ToString()) <text>seconds</text>
-       }
-       else
-       {
-           <text>Finished</text>
-       }
-
+<script src="@Url.Content("~/Scripts/custom/competition.js")" type="text/javascript"></script>
+<div>
+    <div id="countdown">
+        <span id="timeLeft" data-timeLeft="@Convert.ToInt32(Model.TimeLeft.TotalSeconds)">@Model.TimeLeft.ToString(@"hh\:mm\:ss")</span>s left.
     </div>
-</fieldset> 
+
+    @foreach(var problem in Model.Problems)
+    {
+        switch (problem.Type)
+        {
+            case PrototypeTopCoder.Models.ProblemType.SimpleTestQuestion:
+                @Html.Partial("~/Views/Competition/TestProblem.cshtml", problem);
+                break;
+        }
+    }
+</div> 

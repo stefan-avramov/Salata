@@ -8,6 +8,7 @@
 
 .navbar-inner {
     height: 60px;
+    color: #fff;
     border: 0px;
     border-radius: 0px;
     background: #199bd8;
@@ -16,6 +17,11 @@
 .logo {
     font-size: 26px;
     margin-top: 5px;
+}
+
+.logo a {
+    color: #fff;
+    text-decoration: none;
 }
 
 .logo img {
@@ -90,4 +96,19 @@
         top: 0px;
         right: 20px;
     }
+}
+
+input[type="radio"] {
+    float: left;
+    margin-right: 5px;
+}
+
+.problem {
+    margin-bottom: 20px;
+}
+
+#countdown {
+    position: absolute;
+    right: 20px;
+    font-weight: bold;
 }

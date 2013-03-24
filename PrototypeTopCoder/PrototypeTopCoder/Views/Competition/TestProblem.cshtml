@@ -1,0 +1,17 @@
+﻿@model PrototypeTopCoder.Models.SimpleTestProblemModel
+
+<div class="problem">
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-field">
+        @Html.Raw(Model.Question)
+    </div>
+
+    @for (int i = 0; i < Model.Options.Count; ++i)
+    {
+        <input type="radio" name="option" />
+        <label for="option">@Model.Options[i]</label>
+    }
+</div>

@@ -29,8 +29,14 @@ namespace PrototypeTopCoder.Controllers
 					Session["username"] = model.UserName;
 					Session["isAdmin"] = userType == DataHelper.UserType.Admin;
 
-                    return Redirect(returnUrl);
-//					return RedirectToAction("Index", "Home");
+                    if (String.IsNullOrEmpty(returnUrl))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return Redirect(returnUrl);
+                    }
 				}
 				else
 				{

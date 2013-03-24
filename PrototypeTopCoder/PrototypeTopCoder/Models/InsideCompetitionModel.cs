@@ -8,7 +8,7 @@ namespace PrototypeTopCoder.Models
 	public class InsideCompetitionModel
 	{
 		public TimeSpan TimeLeft { get; set; }
-		public List<ProblemModel> Problems { get; private set; }
+		public List<ProblemModel> Problems { get; set; }
 		 
 		public InsideCompetitionModel()
 		{

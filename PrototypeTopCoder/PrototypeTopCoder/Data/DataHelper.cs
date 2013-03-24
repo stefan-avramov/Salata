@@ -314,6 +314,12 @@ namespace PrototypeTopCoder
 				{
 					InsideCompetitionModel model = new InsideCompetitionModel();
 					model.TimeLeft = TimeSpan.FromMinutes(cuser.Competition.Duration) - (DateTime.Now - cuser.Start.Value);
+                    var compTasks = entityModel.CompetetionsProblems.Where(x => x.CompetetionId == competitionId);
+                    model.Problems = new List<ProblemModel>();
+                    foreach (var task in compTasks)
+                    {
+                        model.Problems.Add(DataHelper.GetTask(task.ProblemId));
+                    }
 					return model;
 				}
 			}
