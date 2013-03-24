@@ -49,6 +49,12 @@ namespace PrototypeTopCoder.Controllers
 			return RedirectToAction("Index");
 		}
 
+        public ActionResult DeleteCompetition(int id)
+        {
+            DataHelper.DeleteCompetition(id);
+            return RedirectToAction("Index");
+        }
+
 		public ActionResult CreateProblem(int id, int type)
 		{
 			if (type == (int)ProblemType.SimpleTestQuestion)

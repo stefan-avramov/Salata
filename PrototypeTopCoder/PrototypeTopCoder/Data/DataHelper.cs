@@ -192,6 +192,15 @@ namespace PrototypeTopCoder
 			}
 		}
 
+        internal static void DeleteCompetition(int id)
+        {
+            using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+            {
+                entityModel.Competitions.Where(x => x.ID == id).ToList().ForEach(entityModel.Competitions.DeleteObject);
+                entityModel.SaveChanges();
+            }
+        }
+
 		public static dynamic GetCategories()
 		{
 			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
