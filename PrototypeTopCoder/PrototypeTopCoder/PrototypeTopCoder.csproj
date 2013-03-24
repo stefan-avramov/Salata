@@ -112,10 +112,12 @@
     <Content Include="Content\img\correct_old.png" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Content\img\ivan.jpg" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\question_mark.png" />
     <Content Include="Content\img\question_mark_big.png" />
     <Content Include="Content\img\question_mark_old.png" />
+    <Content Include="Content\img\stefan.jpg" />
     <Content Include="Content\img\Untitled-3.png" />
     <Content Include="Content\img\wheel.png" />
     <Content Include="Content\img\wrong.png" />
@@ -153,6 +155,8 @@
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\custom\competition.js" />
+    <Content Include="Scripts\custom\index.js" />
     <Content Include="Scripts\custom\TinyMCE.js" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
