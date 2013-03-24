@@ -54,6 +54,8 @@ namespace PrototypeTopCoder.Controllers
 		public ActionResult LogOff()
 		{
 			Session["isLogged"] = null;
+            Session["isAdmin"] = null;
+            Session["username"] = null;
 
 			return RedirectToAction("Index", "Home");
 		}
