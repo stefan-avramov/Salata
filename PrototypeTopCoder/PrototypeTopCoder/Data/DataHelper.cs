@@ -89,14 +89,17 @@ namespace PrototypeTopCoder
 			{
 				entityModel.AddToCompetitions(comp);
 				entityModel.SaveChanges();
-                foreach (var problem in model.SelectedProblems)
+                if (model.SelectedProblems != null)
                 {
-                    CompetetionsProblem cp = new CompetetionsProblem();
-                    cp.CompetetionId = comp.ID;
-                    cp.ProblemId = problem;
-                    entityModel.CompetetionsProblems.AddObject(cp);
+                    foreach (var problem in model.SelectedProblems)
+                    {
+                        CompetetionsProblem cp = new CompetetionsProblem();
+                        cp.CompetetionId = comp.ID;
+                        cp.ProblemId = problem;
+                        entityModel.CompetetionsProblems.AddObject(cp);
+                    }
+                    entityModel.SaveChanges();
                 }
-                entityModel.SaveChanges();
 			}
 		}
 

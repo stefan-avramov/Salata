@@ -36,7 +36,13 @@
             @Html.LabelFor(model => model.Start)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Start)
+            <div class="input-append date" id="start_wrapper">
+                @Html.TextBoxFor(model => model.Start, new { data_format="MM/dd/yyyy HH:mm:ss PP"})
+                <span class="add-on">
+                    <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                    </i>
+                </span>
+            </div>
             @Html.ValidationMessageFor(model => model.Start)
         </div>
 
@@ -44,9 +50,16 @@
             @Html.LabelFor(model => model.End)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.End)
+            <div class="input-append date" id="end_wrapper">
+                @Html.TextBoxFor(model => model.End, new { data_format = "MM/dd/yyyy HH:mm:ss PP" })
+                <span class="add-on">
+                    <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                    </i>
+                </span>
+            </div>
             @Html.ValidationMessageFor(model => model.End)
         </div>
+
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Duration)
@@ -80,3 +93,10 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#start_wrapper').datetimepicker();
+        $('#end_wrapper').datetimepicker();
+    });
+</script>

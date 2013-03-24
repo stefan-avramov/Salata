@@ -101,23 +101,26 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-responsive.css" />
-    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\css\bootstrap-responsive.css" />
+    <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\FineUploader\fineuploader.css" />
     <Content Include="Content\FineUploader\loading.gif" />
     <Content Include="Content\FineUploader\processing.gif" />
-    <Content Include="Content\images\correct.png" />
-    <Content Include="Content\images\correct_bright.png" />
-    <Content Include="Content\images\correct_old.png" />
-    <Content Include="Content\images\logo.png" />
-    <Content Include="Content\images\question_mark.png" />
-    <Content Include="Content\images\question_mark_big.png" />
-    <Content Include="Content\images\question_mark_old.png" />
-    <Content Include="Content\images\Untitled-3.png" />
-    <Content Include="Content\images\wheel.png" />
-    <Content Include="Content\images\wrong.png" />
-    <Content Include="Content\images\X.png" />
-    <Content Include="Content\main.css" />
+    <Content Include="Content\img\correct.png" />
+    <Content Include="Content\img\correct_bright.png" />
+    <Content Include="Content\img\correct_old.png" />
+    <Content Include="Content\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Content\img\logo.png" />
+    <Content Include="Content\img\question_mark.png" />
+    <Content Include="Content\img\question_mark_big.png" />
+    <Content Include="Content\img\question_mark_old.png" />
+    <Content Include="Content\img\Untitled-3.png" />
+    <Content Include="Content\img\wheel.png" />
+    <Content Include="Content\img\wrong.png" />
+    <Content Include="Content\img\X.png" />
+    <Content Include="Content\css\main.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -147,6 +150,8 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
     <Content Include="Infrastructure\readme.txt" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\custom\TinyMCE.js" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
@@ -431,7 +436,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\css\Site.css" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
