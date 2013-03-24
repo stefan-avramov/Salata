@@ -10,7 +10,7 @@ namespace PrototypeTopCoder.Controllers
 	{
 		public ActionResult Index()
 		{
-			ViewBag.Message = "Upcoming competitions";
+			ViewBag.Message = "upcoming events";
 			 
 			return View( DataHelper.GetAllCompetitions(Session["username"] as string) );
 		}

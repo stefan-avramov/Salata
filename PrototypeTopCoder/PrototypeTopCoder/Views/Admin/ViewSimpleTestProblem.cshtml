@@ -1,8 +1,6 @@
 ﻿@model PrototypeTopCoder.Models.SimpleTestProblemModel
 
 <fieldset>
-    <legend>SimpleTestProblemModel</legend>
-
     <div class="display-label">Question</div>
     <div class="display-field">
         @Html.Raw(Model.Question)
@@ -16,7 +14,7 @@
         </li>
     }
     </ol>
-    <div class="display-label">CorrectAnswer</div>
+    <div class="display-label">Correct Answer</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.CorrectAnswer)
     </div>

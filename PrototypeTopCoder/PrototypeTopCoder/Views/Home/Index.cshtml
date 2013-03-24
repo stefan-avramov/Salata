@@ -1,13 +1,82 @@
 ﻿@model Dictionary<PrototypeTopCoder.Models.CompetitionModel, PrototypeTopCoder.Models.UserCompetitionState>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Better  -  Home Page";
 }
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/custom/index.js")"></script>
 
-<h2>@ViewBag.Message</h2>
-<table>
+<div class="header">@ViewBag.Message</div>
+
+@{ 
+    var list = Model.ToList();
+    for (int row = 0; row * 3 < list.Count; ++row)
+    {
+        <div class="row-fluid" style="margin-left: 5px;">
+            @for (int i = 0; i < 3 && row * 3 + i < list.Count; ++i)
+            {
+                var entry = list[row * 3 + i];
+                var state = "details";
+                var url = @Url.Action("Index", "Home");
+                <div class="span4 tile contest">
+                    <div>@entry.Key.Name</div>
+                    <div>
+                        @(entry.Key.Start > DateTime.Now ? "Starts" : "Started")
+                        <span class="date">@entry.Key.Start</span>
+                    </div>
+                    @switch (entry.Key.State)
+                    {
+                        case PrototypeTopCoder.Models.CompetitionState.NotStarted:
+                            if (entry.Value == PrototypeTopCoder.Models.UserCompetitionState.NotEnrolled)
+                            {
+                                state = "register";
+                                url = @Url.Action("Enroll", "EnrollForCompetition", new { id = entry.Key.ID });
+                            }
+                            break;
+                        case PrototypeTopCoder.Models.CompetitionState.InProgress:
+                            if (entry.Value == PrototypeTopCoder.Models.UserCompetitionState.NotEnrolled)
+                            {
+                                state = "register";
+                                url = @Url.Action("EnrollForCompetition", new { id = entry.Key.ID });
+                            }
+                            else if (entry.Value != PrototypeTopCoder.Models.UserCompetitionState.Ended)
+                            {
+                                state = "enter";
+                                url = @Url.Action("EnterCompetition", new { id = entry.Key.ID });
+                            }
+                            state = entry.Value == PrototypeTopCoder.Models.UserCompetitionState.NotEnrolled ? "register" : "enter";
+                            break;
+                    }
+                    <div class="action @state" data-id="@entry.Key.ID" data-url="@url">
+                        @(state)...
+                    </div>
+                    <div class="background"></div>
+                </div>
+            }
+            @if (row * 3 + 2 >= list.Count)
+            {
+                <div class="span4 tile">
+                    <div class="action">
+                        show all contests...
+                    </div>
+                    <div class="background"></div>
+                </div>
+            }
+        </div>
+    }
+    if (list.Count % 3 == 0)
+    {
+        <div class="row-fluid" style="margin-left: 5px;">
+            <div class="span4 tile">
+                <div class="action">
+                    show all contests...
+                </div>
+                <div class="background"></div>
+            </div>
+        </div>
+    }
+}
+@*<table>
     <tr>
         <th>Name</th>
         <th>Start</th>
@@ -61,10 +130,26 @@
                     }
                     else if (userState == PrototypeTopCoder.Models.UserCompetitionState.Ended)
                     {
-                        <td>Session inished!</td>
+                        <td>Session finished!</td>
                     }
                 }
             }
         </tr>
     }
-</table>
+</table>*@
+
+<div class="activity">
+    <div class="header">activity</div>
+    <div class="tile">
+        <img src="@Url.Content("~/Content/img/stefan.jpg")" alt="Alternate Text" />
+        <div class="name">Stefan Avramov</div>
+        <span>Stefan just solved seven Geography problems with tags <span class="tag">Bulgaria</span> and <span class="tag">California</span>.</span>
+        <span class="timestamp">2 hours ago</span>
+    </div>
+    <div class="tile">
+        <img src="@Url.Content("~/Content/img/ivan.jpg")" alt="Alternate Text" />
+        <div class="name">Ivan Todorov</div>
+        <span>Ivan won the contest "Biology 101" by solving 14 out of 15 problems!</span>
+        <span class="timestamp">1 day ago</span>
+    </div>
+</div>

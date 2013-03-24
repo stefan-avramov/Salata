@@ -1,16 +1,17 @@
 ﻿@model PrototypeTopCoder.Models.ProblemModel
            
 @{
-    ViewBag.Title = "ViewTask";
+    ViewBag.Title = "Viewing problem " + Model.Title;
 }
 
-<h2>ViewTask</h2>
+<h2>Details for problem <span class="problemTitle">@Model.Title</span></h2>
 
 @if (Model is PrototypeTopCoder.Models.SimpleTestProblemModel)
 {
+    @* @Html.Partial("~/Views/Competition/TestProblem.cshtml", Model) *@
     @Html.Partial("ViewSimpleTestProblem", Model)
 }
-@if (Model is PrototypeTopCoder.Models.ComplexTestProblemModel)
+else if (Model is PrototypeTopCoder.Models.ComplexTestProblemModel)
 {
     @Html.Partial("ViewComplexTestProblem", Model)
 }

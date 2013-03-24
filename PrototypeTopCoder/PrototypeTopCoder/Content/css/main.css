@@ -104,11 +104,122 @@ input[type="radio"] {
 }
 
 .problem {
+    margin-top: 10px;
     margin-bottom: 20px;
+    background-color: #199bd8;
+    padding: 10px;
+    color: #fff;
+    font-size: 18px;
+}
+
+.problem label {
+    font-size: 18px;
 }
 
 #countdown {
     position: absolute;
     right: 20px;
     font-weight: bold;
+}
+
+.problemTitle {
+    font-style: italic;
+}
+
+div.header {
+    width: 100%;
+    background-color: #199bd8;
+    color: #fff;
+    font-size: 24px;
+    padding: 5px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.activity .header {
+    margin-top: 20px;
+}
+
+.tile {
+    height: 150px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #e05829;
+    border-color: #e05829;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+}
+
+.row-fluid:nth-child(2n+1) .tile:nth-child(3n+1) {
+    background-color: #bd0c49;
+    border-color: #bd0c49;
+}
+
+.tile:nth-child(3n+2) {
+    background-color: #8bb33d;
+    border-color: #8bb33d;
+}
+
+.tile:hover {
+}
+
+.tile div {
+    margin-bottom: 10px;
+}
+
+.tile div:first-child {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.tile .action {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.tile .background {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    background-color: inherit;
+    z-index: -1;
+    margin: 0px;
+}
+
+.tile:hover .background {
+    left: -3px;
+    right: -3px;
+    top: -3px;
+    bottom: -3px;
+}
+
+.activity .tile {
+    height: 60px;
+    margin-left: 8px;
+}
+
+.tile img {
+    height: 60px;
+    width: 60px;
+    float: left;
+    margin-right: 10px;
+}
+
+.tile .timestamp {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    opacity: 0.6;
+}
+
+.tile .name {
+    font-weight: bold;
+}
+
+.tile .tag {
+    font-style: italic;
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -40,6 +41,7 @@ namespace PrototypeTopCoder.Models
 	{
 		public List<string> Options { get; set; }
 
+        [Display(Name="Correct Answer")]
 		public int CorrectAnswer { get; set; }
 
 		public override int Evaluate(object answer)

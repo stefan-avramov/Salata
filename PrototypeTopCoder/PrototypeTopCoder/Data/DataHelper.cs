@@ -196,6 +196,8 @@ namespace PrototypeTopCoder
         {
             using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
             {
+                entityModel.CompetitionsUsers.Where(x => x.CompetitionId == id).ToList()
+                    .ForEach(entityModel.CompetitionsUsers.DeleteObject);
                 entityModel.Competitions.Where(x => x.ID == id).ToList().ForEach(entityModel.Competitions.DeleteObject);
                 entityModel.SaveChanges();
             }
@@ -217,15 +219,12 @@ namespace PrototypeTopCoder
 				problem.Title = model.Title;
                 problem.ProblemType = (int)type;
 
-                entityModel.AddToProblems(problem);
-                entityModel.SaveChanges();
-                model.ID = problem.ID;
-
 				BinaryFormatter bf = new BinaryFormatter();
 				MemoryStream ms = new MemoryStream();
 				bf.Serialize(ms, model);
-				problem.Data = ms.ToArray(); 
+				problem.Data = ms.ToArray();
 
+                entityModel.AddToProblems(problem);
 				entityModel.SaveChanges();
 			}
 		}

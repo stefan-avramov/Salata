@@ -10,8 +10,13 @@
         <span id="timeLeft" data-timeLeft="@Convert.ToInt32(Model.TimeLeft.TotalSeconds)">@Model.TimeLeft.ToString(@"hh\:mm\:ss")</span>s left.
     </div>
 
-    @foreach(var problem in Model.Problems)
+    @for (int i = 0; i < Model.Problems.Count; ++i )
     {
+        var problem = Model.Problems[i];
+        <div>
+            Question @(i+1).
+            <span class="problemTitle">@problem.Title</span>
+        </div>
         switch (problem.Type)
         {
             case PrototypeTopCoder.Models.ProblemType.SimpleTestQuestion:
