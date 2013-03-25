@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using PrototypeTopCoder.Models;
+using System.Data;
 
 namespace PrototypeTopCoder.Controllers
 {
@@ -97,6 +98,12 @@ namespace PrototypeTopCoder.Controllers
 		public ActionResult ViewTask(int id)
 		{
 			ProblemModel model = DataHelper.GetTask(id);
+			return View(model);
+		}
+
+		public ActionResult EvaluateCompetition(int id)
+		{
+			DataTable model = DataHelper.GetCompetitionResults(id);
 			return View(model);
 		}
 	}

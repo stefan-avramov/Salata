@@ -8,13 +8,12 @@
 //------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel;
-using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Linq;
-using System.Runtime.Serialization;
+using System.Data.EntityClient;
+using System.ComponentModel;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -206,7 +205,6 @@ namespace PrototypeTopCoder
         private ObjectSet<User> _Users;
 
         #endregion
-
         #region AddTo Methods
     
         /// <summary>
@@ -274,11 +272,11 @@ namespace PrototypeTopCoder
         }
 
         #endregion
-
     }
+    
 
     #endregion
-
+    
     #region Entities
     
     /// <summary>
@@ -305,7 +303,6 @@ namespace PrototypeTopCoder
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -360,7 +357,6 @@ namespace PrototypeTopCoder
         partial void OnNameChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -387,7 +383,6 @@ namespace PrototypeTopCoder
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -416,7 +411,6 @@ namespace PrototypeTopCoder
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -495,7 +489,6 @@ namespace PrototypeTopCoder
         partial void OnProblemIdChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -576,7 +569,6 @@ namespace PrototypeTopCoder
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -611,7 +603,6 @@ namespace PrototypeTopCoder
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -786,7 +777,6 @@ namespace PrototypeTopCoder
         partial void OnDescriptionChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -873,7 +863,6 @@ namespace PrototypeTopCoder
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -902,7 +891,6 @@ namespace PrototypeTopCoder
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1003,9 +991,80 @@ namespace PrototypeTopCoder
         private Nullable<global::System.DateTime> _Start;
         partial void OnStartChanging(Nullable<global::System.DateTime> value);
         partial void OnStartChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> NewRating
+        {
+            get
+            {
+                return _NewRating;
+            }
+            set
+            {
+                OnNewRatingChanging(value);
+                ReportPropertyChanging("NewRating");
+                _NewRating = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NewRating");
+                OnNewRatingChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _NewRating;
+        partial void OnNewRatingChanging(Nullable<global::System.Int32> value);
+        partial void OnNewRatingChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> RatingIncreased
+        {
+            get
+            {
+                return _RatingIncreased;
+            }
+            set
+            {
+                OnRatingIncreasedChanging(value);
+                ReportPropertyChanging("RatingIncreased");
+                _RatingIncreased = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RatingIncreased");
+                OnRatingIncreasedChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _RatingIncreased;
+        partial void OnRatingIncreasedChanging(Nullable<global::System.Boolean> value);
+        partial void OnRatingIncreasedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Place
+        {
+            get
+            {
+                return _Place;
+            }
+            set
+            {
+                OnPlaceChanging(value);
+                ReportPropertyChanging("Place");
+                _Place = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Place");
+                OnPlaceChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Place;
+        partial void OnPlaceChanging(Nullable<global::System.Int32> value);
+        partial void OnPlaceChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1086,7 +1145,6 @@ namespace PrototypeTopCoder
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1119,7 +1177,6 @@ namespace PrototypeTopCoder
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1246,7 +1303,6 @@ namespace PrototypeTopCoder
         partial void OnDataChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1295,7 +1351,6 @@ namespace PrototypeTopCoder
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1314,21 +1369,18 @@ namespace PrototypeTopCoder
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="userId">Initial value of the UserId property.</param>
         /// <param name="problemId">Initial value of the ProblemId property.</param>
-        /// <param name="start">Initial value of the Start property.</param>
         /// <param name="isReady">Initial value of the IsReady property.</param>
-        public static Submission CreateSubmission(global::System.Int32 id, global::System.Int32 userId, global::System.Int32 problemId, global::System.DateTime start, global::System.Boolean isReady)
+        public static Submission CreateSubmission(global::System.Int32 id, global::System.Int32 userId, global::System.Int32 problemId, global::System.Boolean isReady)
         {
             Submission submission = new Submission();
             submission.ID = id;
             submission.UserId = userId;
             submission.ProblemId = problemId;
-            submission.Start = start;
             submission.IsReady = isReady;
             return submission;
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1409,9 +1461,9 @@ namespace PrototypeTopCoder
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.DateTime Start
+        public Nullable<global::System.DateTime> Start
         {
             get
             {
@@ -1426,8 +1478,8 @@ namespace PrototypeTopCoder
                 OnStartChanged();
             }
         }
-        private global::System.DateTime _Start;
-        partial void OnStartChanging(global::System.DateTime value);
+        private Nullable<global::System.DateTime> _Start;
+        partial void OnStartChanging(Nullable<global::System.DateTime> value);
         partial void OnStartChanged();
     
         /// <summary>
@@ -1477,9 +1529,56 @@ namespace PrototypeTopCoder
         private global::System.Byte[] _Answer;
         partial void OnAnswerChanging(global::System.Byte[] value);
         partial void OnAnswerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Submitted
+        {
+            get
+            {
+                return _Submitted;
+            }
+            set
+            {
+                OnSubmittedChanging(value);
+                ReportPropertyChanging("Submitted");
+                _Submitted = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Submitted");
+                OnSubmittedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Submitted;
+        partial void OnSubmittedChanging(Nullable<global::System.DateTime> value);
+        partial void OnSubmittedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Score
+        {
+            get
+            {
+                return _Score;
+            }
+            set
+            {
+                OnScoreChanging(value);
+                ReportPropertyChanging("Score");
+                _Score = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Score");
+                OnScoreChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Score;
+        partial void OnScoreChanging(Nullable<global::System.Int32> value);
+        partial void OnScoreChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1560,7 +1659,6 @@ namespace PrototypeTopCoder
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1589,7 +1687,6 @@ namespace PrototypeTopCoder
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1716,7 +1813,6 @@ namespace PrototypeTopCoder
         partial void OndefinitionChanged();
 
         #endregion
-
     
     }
     
@@ -1750,7 +1846,6 @@ namespace PrototypeTopCoder
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1925,7 +2020,6 @@ namespace PrototypeTopCoder
         partial void OnEducationChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1974,10 +2068,8 @@ namespace PrototypeTopCoder
         }
 
         #endregion
-
     }
 
     #endregion
-
     
 }

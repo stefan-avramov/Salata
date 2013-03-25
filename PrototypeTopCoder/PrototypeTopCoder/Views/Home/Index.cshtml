@@ -16,6 +16,10 @@
             @for (int i = 0; i < 3 && row * 3 + i < list.Count; ++i)
             {
                 var entry = list[row * 3 + i];
+                PrototypeTopCoder.Models.CompetitionModel competition = entry.Key;
+                PrototypeTopCoder.Models.UserCompetitionState userState = entry.Value;
+                PrototypeTopCoder.Models.CompetitionState competitionState = competition.State;
+                
                 var state = "details";
                 var url = @Url.Action("Index", "Home");
                 <div class="span4 tile contest">
@@ -24,13 +28,13 @@
                         @(entry.Key.Start > DateTime.Now ? "Starts" : "Started")
                         <span class="date">@entry.Key.Start</span>
                     </div>
-                    @switch (entry.Key.State)
+                    @switch (competitionState)
                     {
                         case PrototypeTopCoder.Models.CompetitionState.NotStarted:
                             if (entry.Value == PrototypeTopCoder.Models.UserCompetitionState.NotEnrolled)
                             {
                                 state = "register";
-                                url = @Url.Action("Enroll", "EnrollForCompetition", new { id = entry.Key.ID });
+                                url = @Url.Action("EnrollForCompetition", new { id = entry.Key.ID });
                             }
                             break;
                         case PrototypeTopCoder.Models.CompetitionState.InProgress:
@@ -45,7 +49,7 @@
                                 url = @Url.Action("EnterCompetition", new { id = entry.Key.ID });
                             }
                             state = entry.Value == PrototypeTopCoder.Models.UserCompetitionState.NotEnrolled ? "register" : "enter";
-                            break;
+                            break; 
                     }
                     <div class="action @state" data-id="@entry.Key.ID" data-url="@url">
                         @(state)...

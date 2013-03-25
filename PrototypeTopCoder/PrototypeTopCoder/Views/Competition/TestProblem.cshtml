@@ -1,5 +1,33 @@
 ﻿@model PrototypeTopCoder.Models.SimpleTestProblemModel
 
+<script>
+
+    function OnClickSubmit(sender, id) {
+        var div = sender.parentNode;
+        div.innerHTML = "sending ...";
+
+        selectedValue = -1;
+        var selected = $("input[type='radio'][name='question"+id+"']:checked");
+        if (selected.length > 0)
+            selectedValue = selected.val();
+
+        $.ajax({
+            url: "/Competition/SubmitSimpleQuestion/" + id + "?answer=" + selectedValue,
+            context: sender.ParentNode
+        }).done(function (data) { 
+            if (data == "OK") {
+                div.innerHTML = "Answer sent";
+            }
+            else {
+                div.innerHTML = "Error sending your answer";
+            }
+        });
+
+        return false;
+    }
+
+</script>
+
 <div class="problem">
     <div class="display-field">
         @Html.Raw(Model.Question)
@@ -7,7 +35,10 @@
 
     @for (int i = 0; i < Model.Options.Count; ++i)
     {
-        <input type="radio" name="option" />
-        <label for="option">@Model.Options[i]</label>
+        <input type="radio" name=@("question" + Model.ID) value="@i" />
+        <label for="question@Model.ID">@Model.Options[i]</label>
     }
+    <div>
+        <a href="#" onclick="return OnClickSubmit(this, @Model.ID);">Submit</a>
+    </div>
 </div>

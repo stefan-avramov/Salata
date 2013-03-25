@@ -1,0 +1,51 @@
+﻿@model PrototypeTopCoder.Models.ComplexTestProblemModel
+
+<script>
+
+    function OnClickSubmitComplex(sender, id) {
+        var div = sender.parentNode;
+        div.innerHTML = "sending ...";
+         
+        var selected = "";
+        $("input[type='checkbox'][name='question" + id + "']").each(
+            function () {
+                if (this.checked) {
+                    selected += "," + $(this).val();
+                }
+            });
+
+            if (selected.length > 0)
+                selected = selected.substring(1);
+
+        $.ajax({
+            url: "/Competition/SubmitComplexQuestion/" + id + "?answer=" + selected,
+            context: sender.ParentNode
+        }).done(function (data) {
+            if (data == "OK") {
+                div.innerHTML = "Answer sent";
+            }
+            else {
+                div.innerHTML = "Error sending your answer";
+            }
+        });
+
+        return false;
+    }
+
+</script>
+
+<div class="problem">
+    <div class="display-field">
+        @Html.Raw(Model.Question)
+    </div>
+
+    @for (int i = 0; i < Model.Options.Count; ++i)
+    {
+        <input type="checkbox" name=@("question" + Model.ID) value="@i"/>
+        <label for="option">@Model.Options[i]</label>
+    }
+
+    <div>
+        <a href="#" onclick="return OnClickSubmitComplex(this, @Model.ID);">Submit</a>
+    </div>
+</div>

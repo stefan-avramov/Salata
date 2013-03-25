@@ -5,6 +5,7 @@ using System.Web;
 using PrototypeTopCoder.Models;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Data;
 
 namespace PrototypeTopCoder
 {
@@ -334,5 +335,135 @@ namespace PrototypeTopCoder
 
 			return null;
 		}
+
+		internal static bool SubmitSimpleQuestion(string username, int problemId, int answer)
+		{
+			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+			{
+				CompetitionsUser cuser = entityModel.CompetitionsUsers.
+					Where(x => x.User.Username == username && x.Competition.CompetetionsProblems.Any(y => y.ProblemId == problemId)).FirstOrDefault();
+				if(cuser == null || !cuser.Start.HasValue || cuser.Start.Value.AddMinutes(cuser.Competition.Duration) < DateTime.Now)
+				{
+					return false;
+				}
+
+				SimpleProblemAnswer ans = new SimpleProblemAnswer();
+				ans.Answer = answer;
+
+				BinaryFormatter bf = new BinaryFormatter();
+				MemoryStream ms = new MemoryStream();
+				bf.Serialize(ms, ans);
+				
+				Submission submission = new Submission();
+				submission.UserId = cuser.UserId;
+				submission.ProblemId = problemId;
+				submission.Submitted = DateTime.Now;
+				submission.Answer = ms.ToArray();
+				
+				entityModel.AddToSubmissions(submission);
+				entityModel.SaveChanges();
+			}
+
+			return true;
+		}
+
+		internal static bool SubmitComplexQuestion(string username, int problemId, string answer)
+		{
+			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+			{
+				CompetitionsUser cuser = entityModel.CompetitionsUsers.
+					Where(x => x.User.Username == username && x.Competition.CompetetionsProblems.Any(y => y.ProblemId == problemId)).FirstOrDefault();
+				if (cuser == null || !cuser.Start.HasValue || cuser.Start.Value.AddMinutes(cuser.Competition.Duration) < DateTime.Now)
+				{
+					return false;
+				}
+
+				string[] tokens = answer.Split(',');
+				List<int> ints = new List<int>();
+
+				foreach (string token in tokens)
+				{
+					int res = -1;
+					if (int.TryParse(token, out res))
+					{
+						ints.Add(res);
+					} 
+				}
+
+				ComplexProblemAnswer ans = new ComplexProblemAnswer();
+				ans.Answers = ints.ToArray();
+
+				BinaryFormatter bf = new BinaryFormatter();
+				MemoryStream ms = new MemoryStream();
+				bf.Serialize(ms, ans);
+
+				Submission submission = new Submission();
+				submission.UserId = cuser.UserId;
+				submission.ProblemId = problemId;
+				submission.Submitted = DateTime.Now;
+				submission.Answer = ms.ToArray();
+
+				entityModel.AddToSubmissions(submission);
+				entityModel.SaveChanges();
+			}
+
+			return true;
+		}
+
+		internal static DataTable GetCompetitionResults(int id)
+		{
+			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+			{
+				Competition comp = entityModel.Competitions.Where(x => x.ID == id).First();
+
+				foreach (CompetetionsProblem problem in comp.CompetetionsProblems)
+				{
+					foreach (Submission submit in entityModel.Submissions.Where(x => x.ProblemId == problem.ProblemId && !x.Score.HasValue))
+					{
+						ProblemModel problemModel = GetTask(problem.ProblemId);
+						MemoryStream stream = new MemoryStream(submit.Answer);
+						BinaryFormatter formatter = new BinaryFormatter();
+						IProblemAnswer answer = (IProblemAnswer)formatter.Deserialize(stream);
+						submit.Score = problemModel.Evaluate(answer);
+					}
+				}
+
+				entityModel.SaveChanges();
+			}
+
+			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+			{
+				Competition comp = entityModel.Competitions.Where(x => x.ID == id).First();
+				DataTable table = new DataTable();
+				table.Columns.Add("Username");
+				foreach (CompetetionsProblem problem in comp.CompetetionsProblems)
+				{
+					table.Columns.Add(problem.Problem.Title);
+				}
+				
+				table.Columns.Add("Total");
+
+				foreach (CompetitionsUser user in comp.CompetitionsUsers)
+				{
+					DataRow row = table.NewRow();
+					row["Username"] = user.User.Username;
+					int totalScore = 0;
+					foreach (CompetetionsProblem problem in comp.CompetetionsProblems)
+					{ 
+						Submission subm = entityModel.Submissions
+							.Where(x => x.UserId == user.UserId && x.ProblemId == problem.ProblemId)
+							.OrderByDescending(x => x.ID).FirstOrDefault();
+						int score = subm != null && subm.Score.HasValue ? subm.Score.Value : 0;
+						totalScore += score;
+						row[problem.Problem.Title] = score;
+					}
+
+					row["Total"] = totalScore;
+					table.Rows.Add(row);
+				}
+
+				return table;
+			} 
+		} 
 	}
 }

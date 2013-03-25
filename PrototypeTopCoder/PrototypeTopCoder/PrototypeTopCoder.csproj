@@ -469,6 +469,8 @@
     <Content Include="Views\Competition\Index.cshtml" />
     <Content Include="Views\Admin\AddProblems.cshtml" />
     <Content Include="Views\Competition\TestProblem.cshtml" />
+    <Content Include="Views\Competition\ComplexTestProblem.cshtml" />
+    <Content Include="Views\Admin\EvaluateCompetition.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -544,5 +546,5 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!--<Import Project="$(SolutionDir)\.nuget\nuget.targets" />-->
 </Project>

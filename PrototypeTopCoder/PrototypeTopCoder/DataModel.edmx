@@ -78,6 +78,9 @@
           <Property Name="CompetitionId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="Start" Type="datetime" />
+          <Property Name="NewRating" Type="int" />
+          <Property Name="RatingIncreased" Type="bit" />
+          <Property Name="Place" Type="int" />
         </EntityType>
         <EntityType Name="Problems">
           <Key>
@@ -96,8 +99,10 @@
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="ProblemId" Type="int" Nullable="false" />
-          <Property Name="Start" Type="datetime" Nullable="false" />
+          <Property Name="Start" Type="datetime" />
           <Property Name="IsReady" Type="bit" Nullable="false" />
+          <Property Name="Submitted" Type="datetime" />
+          <Property Name="Score" Type="int" />
           <Property Name="Answer" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -291,6 +296,9 @@
           <Property Name="Start" Type="DateTime" />
           <NavigationProperty Name="Competition" Relationship="TopCoderPrototypeModel.FK_CompetitionsUsers_Competitions" FromRole="CompetitionsUsers" ToRole="Competitions" />
           <NavigationProperty Name="User" Relationship="TopCoderPrototypeModel.FK_CompetitionsUsers_Users" FromRole="CompetitionsUsers" ToRole="Users" />
+          <Property Type="Int32" Name="NewRating" />
+          <Property Type="Boolean" Name="RatingIncreased" />
+          <Property Type="Int32" Name="Place" />
         </EntityType>
         <EntityType Name="Problem">
           <Key>
@@ -311,11 +319,13 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="ProblemId" Type="Int32" Nullable="false" />
-          <Property Name="Start" Type="DateTime" Nullable="false" />
+          <Property Name="Start" Type="DateTime" Nullable="true" />
           <Property Name="IsReady" Type="Boolean" Nullable="false" />
           <Property Name="Answer" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Problem" Relationship="TopCoderPrototypeModel.FK_Submissions_Problems" FromRole="Submissions" ToRole="Problems" />
           <NavigationProperty Name="User" Relationship="TopCoderPrototypeModel.FK_Submissions_Users" FromRole="Submissions" ToRole="Users" />
+          <Property Type="DateTime" Name="Submitted" />
+          <Property Type="Int32" Name="Score" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -450,7 +460,10 @@
             <ScalarProperty Name="Description" ColumnName="Description" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="CompetitionsUsers"><EntityTypeMapping TypeName="TopCoderPrototypeModel.CompetitionsUser"><MappingFragment StoreEntitySet="CompetitionsUsers">
-            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="RatingIncreased" ColumnName="RatingIncreased" />
+                <ScalarProperty Name="NewRating" ColumnName="NewRating" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
             <ScalarProperty Name="UserId" ColumnName="UserId" />
             <ScalarProperty Name="Start" ColumnName="Start" />
@@ -463,7 +476,9 @@
             <ScalarProperty Name="Data" ColumnName="Data" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Submissions"><EntityTypeMapping TypeName="TopCoderPrototypeModel.Submission"><MappingFragment StoreEntitySet="Submissions">
-            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="Submitted" ColumnName="Submitted" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="UserId" ColumnName="UserId" />
             <ScalarProperty Name="ProblemId" ColumnName="ProblemId" />
             <ScalarProperty Name="Start" ColumnName="Start" />

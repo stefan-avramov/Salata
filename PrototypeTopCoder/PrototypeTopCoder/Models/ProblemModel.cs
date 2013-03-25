@@ -14,12 +14,29 @@ namespace PrototypeTopCoder.Models
 		//other stuff
 	}
 
+	public interface IProblemAnswer
+	{
+		//to whomever might be this needed
+	}
+
+	[Serializable]
+	public class SimpleProblemAnswer : IProblemAnswer
+	{
+		public int Answer { get; set; }
+	}
+
+	[Serializable]
+	public class ComplexProblemAnswer : IProblemAnswer
+	{
+		public int[] Answers { get; set; }
+	}
+
 	[Serializable]
 	public class ProblemModel
 	{
 		public string Title { get; set; }
 		public int ID { get; set; }
-		public virtual int Evaluate(object answer) { return 0; }
+		public virtual int Evaluate(IProblemAnswer answer) { return 0; }
 		public virtual ProblemType Type
 		{
 			get
@@ -28,11 +45,11 @@ namespace PrototypeTopCoder.Models
 			}
         }
 
-        private string _Question;
+        private string question;
         public string Question
         {
-            get { return HttpUtility.HtmlDecode(_Question); }
-            set { _Question = value; }
+            get { return HttpUtility.HtmlDecode(question); }
+            set { question = value; }
         }
 	}
 
@@ -44,9 +61,10 @@ namespace PrototypeTopCoder.Models
         [Display(Name="Correct Answer")]
 		public int CorrectAnswer { get; set; }
 
-		public override int Evaluate(object answer)
+		public override int Evaluate(IProblemAnswer answer)
 		{
-			return Object.Equals(answer, CorrectAnswer) ? 1 : 0;
+			SimpleProblemAnswer sans = answer as SimpleProblemAnswer; 
+			return sans != null ? sans.Answer == CorrectAnswer ? 1 : 0 : 0;
 		}
 
 		public override ProblemType Type
@@ -65,13 +83,13 @@ namespace PrototypeTopCoder.Models
 
 		public List<int> CorrectAnswers { get; set; }
 
-		public override int Evaluate(object answer)
+		public override int Evaluate(IProblemAnswer answer)
 		{
-			List<int> answers = answer as List<int>;
+			ComplexProblemAnswer answers = answer as ComplexProblemAnswer;
 			if (answers != null)
 			{
-				int corrects = answers.Where(x => CorrectAnswers.Contains(x)).Count();
-				int incorrect = answers.Where(x => !CorrectAnswers.Contains(x)).Count();
+				int corrects = answers.Answers.Where(x => CorrectAnswers.Contains(x)).Count();
+				int incorrect = answers.Answers.Where(x => !CorrectAnswers.Contains(x)).Count();
 				return Math.Max(0, corrects - incorrect);
 			}
 
