@@ -6,6 +6,10 @@
     font-size:12pt;
 }
 
+a {
+    color: white;
+}
+
 .navbar-inner {
     height: 60px;
     color: #fff;
@@ -242,4 +246,17 @@ td.correct {
 
 td.wrong {
     background-color: #d42929;
+}
+
+.contest_description {
+    padding: 15px;
+    width: 400px;
+}
+
+.contest_description div {
+    color: white;
+    background-color: #199bd8;
+    padding: 10px;
+    padding-bottom: 20px;
+    font-weight: bold;
 }

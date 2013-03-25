@@ -20,11 +20,11 @@
 		// Create and populate the data table.
 		var data = google.visualization.arrayToDataTable([
 			['x', 'Rating'],
-			['10/12', 1200],
-			['11/12', 1443],
-			['12/12', 893],
-			['01/13', 1230],
-			['02/13', 2560]
+			['March 5th', 1200],
+			['March 11th', 1443],
+			['March 18th', 893],
+			['March 21st', 1230],
+			['March 23rd', 2560]
 		]);
 
 		// Instantiate and draw our chart, passing in some options.
@@ -32,14 +32,22 @@
 		chart.draw(data, {
 			backgroundColor: 'transparent',
 			legend: { position: "none" },
-			width: 400, height: 200,
+			width: 500, height: 400,
 			vAxis: { maxValue: 2999, minValue: 0},
 			pointSize: 5
+		});
+		google.visualization.events.addListener(chart, 'select', function () {
+		    if (chart.getSelection().length == 0) {
+		        return;
+		    }
+//		    console.log(chart.getSelection());
+		    $('.contest_description > div').hide();
+            $('#contest' + chart.getSelection()[0].row).show();
 		});
 	}
 </script>
 
-<table style="width: 400">
+<table style="margin-bottom: 50px;">
 	<tr>
 		<td style="width: 160px;">
 			<img src="@Url.Content("~/Content/img/" + Model.Username + ".jpg")" alt="IMAGE"/>
@@ -57,5 +65,22 @@
 		<td colspan="2">
 			<div style="margin-left: -20px;" id="chart_div"></div>
 		</td>
+        <td class="contest_description">
+            <div style="display: none;" id="contest0">
+                <div>Geography Tournament 2013 - Round 1</div>
+                <div>March 5th, 2013</div>
+                <div>Ranked 170th out of 513.</div>
+            </div>
+            <div style="display: none;" id="contest1">
+                <div>Geography Tournament 2013 - Round 2</div>
+                <div>March 11th, 2013</div>
+                <div>Ranked 135th out of 250.</div>
+            </div>
+            <div style="display: none;" id="contest2">
+                <div>Geography Tournament 2013 - Round 3</div>
+                <div>March 18th, 2013</div>
+                <div>Ranked 180th out of 250.</div>
+            </div>
+        </td>
 	</tr>
 </table>
