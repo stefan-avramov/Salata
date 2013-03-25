@@ -40,6 +40,10 @@
         <ul class="offset2 span2 menu">
             <li>@Html.ActionLink("home", "Index", "Home")</li>
             <li><a href="#">contests</a></li>
+			@if (Session["username"] != null && (bool)Session["isAdmin"] == false)
+			{
+				<li>@Html.ActionLink("profile", "OwnProfile", "Profile")</li>
+			}
             <li><a href="#">event calendar</a></li>
             <li><a href="#">statistics</a></li>
             <li>@Html.ActionLink("about", "About", "Home")</li>

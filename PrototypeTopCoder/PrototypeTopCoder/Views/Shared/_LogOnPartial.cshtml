@@ -1,8 +1,17 @@
 ﻿@if(Object.Equals(Session["isLogged"], true))
 {
     <text>
-        welcome, @Session["username"]!
-   
+		@if ((bool)Session["isAdmin"])
+		{
+			@Html.Label("welcome, " + Session["username"] + "!");
+		}
+		else
+		{
+			<text>
+				welcome, @Html.ActionLink(Session["username"] as string, "OwnProfile", "Profile") !
+			</text>
+		}
+
         <div class="welcome">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="@Url.Content("~/Content/img/wheel.png")" alt="Settings" class="settingsWheel" />
@@ -16,6 +25,7 @@
         </div>
     </text>
 }
-else {
+else
+{
     @:@Html.ActionLink("Log On", "LogOn", "Account")
 }

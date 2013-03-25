@@ -1,0 +1,10 @@
+﻿@model PrototypeTopCoder.Models.ProfileModel
+
+@{
+    ViewBag.Title = "my profile";
+}
+
+<h2>@Model.Username</h2>
+<p>
+	<img src="@Url.Content("~/Content/img/" + Model.Username + ".jpg")" alt="IMAGE"/>
+</p>
