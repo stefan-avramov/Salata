@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -81,6 +84,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CompetitionController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="DataModel.Designer.cs">
@@ -98,6 +102,7 @@
     <Compile Include="Models\CompetitionModel.cs" />
     <Compile Include="Models\InsideCompetitionModel.cs" />
     <Compile Include="Models\ProblemModel.cs" />
+    <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +112,8 @@
     <Content Include="Content\FineUploader\fineuploader.css" />
     <Content Include="Content\FineUploader\loading.gif" />
     <Content Include="Content\FineUploader\processing.gif" />
+    <Content Include="Content\img\star_32.png" />
+    <Content Include="Content\img\stef_lp.jpg" />
     <Content Include="Content\img\correct.png" />
     <Content Include="Content\img\correct_bright.png" />
     <Content Include="Content\img\correct_old.png" />
@@ -150,6 +157,7 @@
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Infrastructure\readme.txt" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
@@ -175,6 +183,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\tinymce\langs\en.js" />
     <Content Include="Scripts\tinymce\license.txt" />
     <Content Include="Scripts\tinymce\plugins\advhr\css\advhr.css" />
@@ -468,9 +477,10 @@
     <Content Include="Views\Shared\EditorTemplates\tinymce_full.cshtml" />
     <Content Include="Views\Competition\Index.cshtml" />
     <Content Include="Views\Admin\AddProblems.cshtml" />
-    <Content Include="Views\Competition\TestProblem.cshtml" />
+    <Content Include="Views\Competition\TestProblem.cshtml" /> 
     <Content Include="Views\Competition\ComplexTestProblem.cshtml" />
-    <Content Include="Views\Admin\EvaluateCompetition.cshtml" />
+    <Content Include="Views\Admin\EvaluateCompetition.cshtml" /> 
+    <Content Include="Views\Profile\OwnProfile.cshtml" /> 
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -546,5 +556,5 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <!--<Import Project="$(SolutionDir)\.nuget\nuget.targets" />-->
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>
