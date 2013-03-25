@@ -4,7 +4,58 @@
     ViewBag.Title = "my profile";
 }
 
-<h2>@Model.Username</h2>
-<p>
-	<img src="@Url.Content("~/Content/img/" + Model.Username + ".jpg")" alt="IMAGE"/>
-</p>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+	// Load the Visualization API and the piechart package.
+	google.load('visualization', '1.0', { 'packages': ['corechart'] });
+
+	// Set a callback to run when the Google Visualization API is loaded.
+	google.setOnLoadCallback(drawChart);
+
+	// Callback that creates and populates a data table,
+	// instantiates the pie chart, passes in the data and
+	// draws it.
+	function drawChart() {
+
+		// Create and populate the data table.
+		var data = google.visualization.arrayToDataTable([
+			['x', 'Rating'],
+			['10/12', 1200],
+			['11/12', 1443],
+			['12/12', 893],
+			['01/13', 1230],
+			['02/13', 2560]
+		]);
+
+		// Instantiate and draw our chart, passing in some options.
+		var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+		chart.draw(data, {
+			backgroundColor: 'transparent',
+			legend: { position: "none" },
+			width: 400, height: 200,
+			vAxis: { maxValue: 2999, minValue: 0},
+			pointSize: 5
+		});
+	}
+</script>
+
+<table style="width: 400">
+	<tr>
+		<td style="width: 160px;">
+			<img src="@Url.Content("~/Content/img/" + Model.Username + ".jpg")" alt="IMAGE"/>
+		</td>
+		<td>
+			<div style="margin-left: 15px">
+				<h4>@Model.Username</h4>
+				<img style="width: 24px; height: 24px; vertical-align:text-bottom;"
+					src="@Url.Content("~/Content/img/star_32.png")" alt="IMAGE" />
+				<h4 style="display:inline; color:#188BD8">2560</h4>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<div style="margin-left: -20px;" id="chart_div"></div>
+		</td>
+	</tr>
+</table>

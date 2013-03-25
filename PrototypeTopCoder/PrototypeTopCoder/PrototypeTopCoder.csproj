@@ -112,6 +112,7 @@
     <Content Include="Content\FineUploader\fineuploader.css" />
     <Content Include="Content\FineUploader\loading.gif" />
     <Content Include="Content\FineUploader\processing.gif" />
+    <Content Include="Content\img\star_32.png" />
     <Content Include="Content\img\stef_lp.jpg" />
     <Content Include="Content\img\correct.png" />
     <Content Include="Content\img\correct_bright.png" />
