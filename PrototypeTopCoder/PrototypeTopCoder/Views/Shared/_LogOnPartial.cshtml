@@ -3,7 +3,9 @@
     <text>
 		@if ((bool)Session["isAdmin"])
 		{
-			@Html.Label("welcome, " + Session["username"] + "!");
+			<text>
+				welcome, @Session["username"]!
+			</text>
 		}
 		else
 		{
