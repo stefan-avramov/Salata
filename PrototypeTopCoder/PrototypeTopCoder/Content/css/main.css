@@ -260,3 +260,11 @@ td.wrong {
     padding-bottom: 20px;
     font-weight: bold;
 }
+
+.admin a {
+    color: #0088cc;
+}
+
+.admin table {
+    margin-top: 20px;
+}

@@ -4,29 +4,31 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-@Html.ActionLink("Create a competition", "CreateCompetition") | 
-@Html.ActionLink("Create a problem", "CreateProblem", new { id = 0, type = 1 }) | 
-@Html.ActionLink("Create a complex problem", "CreateProblem", new { id = 0, type = 2 }) | 
-@Html.ActionLink("View Problems", "ViewTasks")
-<table>
- <tr>
-    <th>Name</th><th>Start</th><th>End</th><th>Duration</th><th>Description</th><th>Edit</th>
- </tr>
-@foreach (PrototypeTopCoder.Models.CompetitionModel competition in Model)
-{
-    <tr>
-        <td>@competition.Name</td>
-        <td>@competition.Start</td>
-        <td>@competition.End</td>
-        <td>@competition.Duration</td>
-        <td>@Html.Raw(competition.Description)</td>
-        <td>
-            @Html.ActionLink("Edit","EditCompetition", new {id = competition.ID}) |
-            @Html.ActionLink("Delete", "DeleteCompetition", new { id = competition.ID })
-            @Html.ActionLink("Results", "EvaluateCompetition", new { id = competition.ID })
-        </td>
-    </tr>
-}
+<div class="header">index</div>
+<div class="admin">
+    @Html.ActionLink("Create a competition", "CreateCompetition") | 
+    @Html.ActionLink("Create a problem", "CreateProblem", new { id = 0, type = 1 }) | 
+    @Html.ActionLink("Create a complex problem", "CreateProblem", new { id = 0, type = 2 }) | 
+    @Html.ActionLink("View Problems", "ViewTasks")
+    <table>
+     <tr>
+        <th>Name</th><th>Start</th><th>End</th><th>Duration</th><th>Description</th><th>Edit</th>
+     </tr>
+    @foreach (PrototypeTopCoder.Models.CompetitionModel competition in Model)
+    {
+        <tr>
+            <td>@competition.Name</td>
+            <td>@competition.Start</td>
+            <td>@competition.End</td>
+            <td>@competition.Duration</td>
+            <td>@Html.Raw(competition.Description)</td>
+            <td>
+                @Html.ActionLink("Edit","EditCompetition", new {id = competition.ID}) |
+                @Html.ActionLink("Delete", "DeleteCompetition", new { id = competition.ID })
+                @Html.ActionLink("Results", "EvaluateCompetition", new { id = competition.ID })
+            </td>
+        </tr>
+    }
 
-</table>
+    </table>
+</div>
