@@ -359,7 +359,9 @@ namespace PrototypeTopCoder
 				submission.ProblemId = problemId;
 				submission.Submitted = DateTime.Now;
 				submission.Answer = ms.ToArray();
-				
+
+                entityModel.Submissions.Where(x => x.UserId == cuser.UserId && x.ProblemId == problemId).ToList()
+                    .ForEach(entityModel.Submissions.DeleteObject);
 				entityModel.AddToSubmissions(submission);
 				entityModel.SaveChanges();
 			}
