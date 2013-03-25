@@ -9,10 +9,12 @@ namespace PrototypeTopCoder.Models
 	{
 		public TimeSpan TimeLeft { get; set; }
 		public List<ProblemModel> Problems { get; set; }
+        public List<IProblemAnswer> Answers { get; set; }
 		 
 		public InsideCompetitionModel()
 		{
 			Problems = new List<ProblemModel>();
+            Answers = new List<IProblemAnswer>();
 		}
 	}
 }

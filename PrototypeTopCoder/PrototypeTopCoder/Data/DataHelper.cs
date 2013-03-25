@@ -328,6 +328,9 @@ namespace PrototypeTopCoder
                     foreach (var task in compTasks)
                     {
                         model.Problems.Add(DataHelper.GetTask(task.ProblemId));
+                        var submit = entityModel.Submissions
+                            .Where(x => x.ProblemId == task.ProblemId && x.UserId == cuser.UserId).FirstOrDefault();
+                        model.Answers.Add(submit == null ? null : GetAnswer(submit));
                     }
 					return model;
 				}
@@ -414,6 +417,14 @@ namespace PrototypeTopCoder
 			return true;
 		}
 
+        private static IProblemAnswer GetAnswer(Submission submission)
+        {
+            MemoryStream stream = new MemoryStream(submission.Answer);
+            BinaryFormatter formatter = new BinaryFormatter();
+            IProblemAnswer answer = (IProblemAnswer)formatter.Deserialize(stream);
+            return answer;
+        }
+
 		internal static DataTable GetCompetitionResults(int id)
 		{
 			using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
@@ -421,15 +432,16 @@ namespace PrototypeTopCoder
 				Competition comp = entityModel.Competitions.Where(x => x.ID == id).First();
 
 				foreach (CompetetionsProblem problem in comp.CompetetionsProblems)
-				{
-					foreach (Submission submit in entityModel.Submissions.Where(x => x.ProblemId == problem.ProblemId && !x.Score.HasValue))
-					{
-						ProblemModel problemModel = GetTask(problem.ProblemId);
-						MemoryStream stream = new MemoryStream(submit.Answer);
-						BinaryFormatter formatter = new BinaryFormatter();
-						IProblemAnswer answer = (IProblemAnswer)formatter.Deserialize(stream);
-						submit.Score = problemModel.Evaluate(answer);
-					}
+                {
+                    ProblemModel problemModel = GetTask(problem.ProblemId);
+                    Submission submit = entityModel.Submissions
+                        .Where(x => x.ProblemId == problem.ProblemId && !x.Score.HasValue)
+                        .FirstOrDefault();
+                    if (submit != null)
+                    {
+                        IProblemAnswer answer = DataHelper.GetAnswer(submit);
+                        submit.Score = problemModel.Evaluate(answer);
+                    }
 				}
 
 				entityModel.SaveChanges();

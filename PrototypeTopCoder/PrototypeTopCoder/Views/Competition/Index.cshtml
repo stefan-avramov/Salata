@@ -19,10 +19,14 @@
         switch (problem.Type)
         {
             case PrototypeTopCoder.Models.ProblemType.SimpleTestQuestion:
-                @Html.Partial("~/Views/Competition/TestProblem.cshtml", problem)
+                @Html.Partial("~/Views/Competition/TestProblem.cshtml", Tuple.Create(
+                    problem as PrototypeTopCoder.Models.SimpleTestProblemModel, 
+                    Model.Answers[i] as PrototypeTopCoder.Models.SimpleProblemAnswer))
                 break;
             case PrototypeTopCoder.Models.ProblemType.ComplexTextQuestion:
-                @Html.Partial("~/VIews/Competition/ComplexTestProblem.cshtml", problem)
+                @Html.Partial("~/VIews/Competition/ComplexTestProblem.cshtml", Tuple.Create(
+                    problem as PrototypeTopCoder.Models.ComplexTestProblemModel,
+                    Model.Answers[i] as PrototypeTopCoder.Models.ComplexProblemAnswer))
                 break;
         }
     }

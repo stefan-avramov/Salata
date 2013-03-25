@@ -1,8 +1,8 @@
-﻿@model PrototypeTopCoder.Models.SimpleTestProblemModel
+﻿@model Tuple<PrototypeTopCoder.Models.SimpleTestProblemModel, PrototypeTopCoder.Models.SimpleProblemAnswer>
 
 <script>
     $(function () {
-        var id = @Model.ID
+        var id = @Model.Item1.ID
         $('[name="question' + id + '"]').click(function () {
             var value = this.value;
             $.ajax({
@@ -20,12 +20,13 @@
 
 <div class="problem">
     <div class="display-field">
-        @Html.Raw(Model.Question)
+        @Html.Raw(Model.Item1.Question)
     </div>
 
-    @for (int i = 0; i < Model.Options.Count; ++i)
+    @for (int i = 0; i < Model.Item1.Options.Count; ++i)
     {
-        <input type="radio" name=@("question" + Model.ID) value="@i" />
-        <label for="question@Model.ID">@Model.Options[i]</label>
+        var selected = Model.Item2 != null && Model.Item2.Answer == i;
+        <input type="radio" name=@("question" + Model.Item1.ID) value="@i" @(selected ? "checked" : "") />
+        <label for="question@Model.ID">@Model.Item1.Options[i]</label>
     }
 </div>
