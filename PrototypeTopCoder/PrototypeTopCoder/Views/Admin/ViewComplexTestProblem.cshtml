@@ -1,8 +1,6 @@
 ﻿@model PrototypeTopCoder.Models.ComplexTestProblemModel
 
 <fieldset>
-    <legend>ComplexTestProblemModel</legend>
-
     <div class="display-label">Question</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Question)
@@ -12,9 +10,15 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Title)
     </div>
+
+    @for (int i = 0; i < Model.Options.Count; ++i)
+    { 
+        <input type="checkbox" @(Model.CorrectAnswers.Contains(i) ? "checked" : "") disabled style="float: left; margin-right: 10px;" />
+        <label>@Model.Options[i]</label>
+    }
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Delete", "DeleteTask", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
