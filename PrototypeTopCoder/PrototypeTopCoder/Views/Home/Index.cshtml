@@ -48,7 +48,6 @@
                                 state = "enter";
                                 url = @Url.Action("EnterCompetition", new { id = entry.Key.ID });
                             }
-                            state = entry.Value == PrototypeTopCoder.Models.UserCompetitionState.NotEnrolled ? "register" : "enter";
                             break; 
                     }
                     <div class="action @state" data-id="@entry.Key.ID" data-url="@url">
