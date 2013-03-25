@@ -99,7 +99,7 @@
     }
 }
 
-input[type="radio"] {
+input[type="radio"], input[type="checkbox"] {
     float: left;
     margin-right: 5px;
 }
@@ -223,4 +223,23 @@ div.header {
 
 .tile .tag {
     font-style: italic;
+}
+
+.results {
+    width: 100%;
+}
+
+.results td, th {
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    background-color: #199bd8;
+}
+
+td.correct {
+    background-color: #8bb33d;
+}
+
+td.wrong {
+    background-color: #d42929;
 }

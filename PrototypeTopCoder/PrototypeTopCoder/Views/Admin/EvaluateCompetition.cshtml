@@ -4,8 +4,8 @@
     ViewBag.Title = "EvaluateCompetition";
 }
 
-<h2>Results</h2>
-<table  width=700 border=1>
+<div class="header">results</div>
+<table border=1 class="results">
 @foreach (System.Data.DataColumn col in Model.Columns)
 {
     <th>@col.ColumnName</th>
@@ -17,7 +17,12 @@
     <tr>
     @foreach (System.Data.DataColumn col in Model.Columns)
     {
-        <td>@row[col]</td>
+        var cls = "";
+        if (col.ColumnName != "Username" && col.ColumnName != "Total")
+        {
+            cls = row[col].ToString() == "0" ? "wrong" : "correct";
+        }
+        <td class="@cls">@row[col]</td>
     }
     </tr>
 }
