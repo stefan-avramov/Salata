@@ -287,6 +287,10 @@ namespace PrototypeTopCoder
                 {
                     model = (ComplexTestProblemModel)formatter.Deserialize(stream);
                 }
+                else if (pr.ProblemType == (int)ProblemType.HumanGradableQuestion)
+                {
+                    model = (HumanGradableProblemModel)formatter.Deserialize(stream);
+                }
                 else
                 {
                     return null;
@@ -417,6 +421,38 @@ namespace PrototypeTopCoder
 			return true;
 		}
 
+        internal static bool SubmitHumanGradableQuestion(string username, int problemId, string answer)
+        {
+            using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+            {
+                CompetitionsUser cuser = entityModel.CompetitionsUsers.
+                    Where(x => x.User.Username == username && x.Competition.CompetetionsProblems.Any(y => y.ProblemId == problemId)).FirstOrDefault();
+                if (cuser == null || !cuser.Start.HasValue || cuser.Start.Value.AddMinutes(cuser.Competition.Duration) < DateTime.Now)
+                {
+                    return false;
+                }
+
+                HumanGradableAnswer ans = new HumanGradableAnswer();
+                ans.Answer = answer;
+
+                BinaryFormatter bf = new BinaryFormatter();
+                MemoryStream ms = new MemoryStream();
+                bf.Serialize(ms, ans);
+
+                Submission submission = new Submission();
+                submission.UserId = cuser.UserId;
+                submission.ProblemId = problemId;
+                submission.Submitted = DateTime.Now;
+                submission.Answer = ms.ToArray();
+
+                entityModel.Submissions.Where(x => x.UserId == cuser.UserId && x.ProblemId == problemId).ToList()
+                    .ForEach(entityModel.Submissions.DeleteObject);
+                entityModel.AddToSubmissions(submission);
+                entityModel.SaveChanges();
+                return true;
+            }
+        }
+
         private static IProblemAnswer GetAnswer(Submission submission)
         {
             MemoryStream stream = new MemoryStream(submission.Answer);
@@ -480,6 +516,43 @@ namespace PrototypeTopCoder
 
 				return table;
 			} 
-		} 
+		}
+
+        public static List<Tuple<HumanGradableAnswer, int>> GetGradableAnswers()
+        {
+            using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+            {
+                var submits = entityModel.Submissions.Where(x => x.Problem.ProblemType == (int)ProblemType.HumanGradableQuestion).ToList();
+                List<Tuple<HumanGradableAnswer, int>> res = new List<Tuple<HumanGradableAnswer, int>>();
+                foreach (var submit in submits)
+                {
+                    res.Add(Tuple.Create(DataHelper.GetAnswer(submit) as HumanGradableAnswer, submit.ID));
+                }
+                return res;
+            }
+        }
+
+        public static bool GradeSubmission(int submissionID, int score)
+        { 
+            using (TopCoderPrototypeEntities entityModel = new TopCoderPrototypeEntities())
+            {
+                var submit = entityModel.Submissions.Where(x => x.ID == submissionID).FirstOrDefault();
+                if (submit == null)
+                {
+                    return false;
+                }
+                var answer = DataHelper.GetAnswer(submit) as HumanGradableAnswer;
+                answer.Score = score;
+
+                BinaryFormatter bf = new BinaryFormatter();
+                MemoryStream ms = new MemoryStream();
+                bf.Serialize(ms, answer);
+                submit.Answer = ms.ToArray();
+                submit.Score = null;
+
+                entityModel.SaveChanges();
+                return true;
+            }
+        }
 	}
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using PrototypeTopCoder.Models;
 using System.Data;
+using System.Collections.Generic;
 
 namespace PrototypeTopCoder.Controllers
 {
@@ -66,6 +67,10 @@ namespace PrototypeTopCoder.Controllers
 			{
 				return View("CreateComplexTestProblem");
 			}
+            else if (type == (int)ProblemType.HumanGradableQuestion)
+            {
+                return View("CreateHumanGradableProblem");
+            }
 
 			return RedirectToAction("Index");
 		}
@@ -83,6 +88,13 @@ namespace PrototypeTopCoder.Controllers
 			DataHelper.AddNewProblem(model, id, ProblemType.ComplexTextQuestion);
 			return RedirectToAction("Index");
 		}
+
+        [HttpPost]
+        public ActionResult CreateHumanGradableProblem(HumanGradableProblemModel model, int? id)
+        {
+            DataHelper.AddNewProblem(model, id, ProblemType.HumanGradableQuestion);
+            return RedirectToAction("Index");
+        }
 
         public ActionResult DeleteTask(int id)
         {
@@ -106,5 +118,20 @@ namespace PrototypeTopCoder.Controllers
 			DataTable model = DataHelper.GetCompetitionResults(id);
 			return View(model);
 		}
+
+        public ActionResult EvaluateTasks()
+        {
+            List<Tuple<HumanGradableAnswer, int> > list = DataHelper.GetGradableAnswers();
+            return View(list);
+        }
+
+        [HttpPost]
+        public JsonResult GradeSubmission(int id)
+        {
+            if (DataHelper.GradeSubmission(id, Int32.Parse(Request.Form[0])))
+                return new JsonResult() { JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet, Data = "OK" };
+            else
+                return new JsonResult() { JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet, Data = "Failed" };
+        }
 	}
 }

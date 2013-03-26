@@ -1,0 +1,26 @@
+﻿@model PrototypeTopCoder.Models.HumanGradableProblemModel
+
+@{
+    ViewBag.Title = "ViewHumanGradableProblem";
+}
+
+<div class="header">ViewHumanGradableProblem</div>
+
+<fieldset>
+    <legend>HumanGradableProblemModel</legend>
+
+    <div class="display-label">Title</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">Question</div>
+    <div class="display-field">
+        @Html.Raw(Model.Question)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Delete", "DeleteTask", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "ViewTasks", "Admin")
+</p>

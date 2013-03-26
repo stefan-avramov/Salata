@@ -11,6 +11,7 @@ namespace PrototypeTopCoder.Models
 		None = 0,
 		SimpleTestQuestion = 1,
 		ComplexTextQuestion = 2,
+        HumanGradableQuestion = 3,
 		//other stuff
 	}
 
@@ -30,6 +31,18 @@ namespace PrototypeTopCoder.Models
 	{
 		public int[] Answers { get; set; }
 	}
+
+    [Serializable]
+    public class HumanGradableAnswer : IProblemAnswer
+    {
+        private string _Answer;
+        public string Answer 
+        {
+            get { return HttpUtility.HtmlDecode(_Answer); }
+            set { _Answer = value; }
+        }
+        public int Score { get; set; }
+    }
 
 	[Serializable]
 	public class ProblemModel
@@ -104,5 +117,23 @@ namespace PrototypeTopCoder.Models
 			}
 		}
 	}
+
+    [Serializable]
+    public class HumanGradableProblemModel : ProblemModel
+    {
+        public override int Evaluate(IProblemAnswer answer)
+        {
+            HumanGradableAnswer ans = answer as HumanGradableAnswer;
+            return ans == null ? 0 : ans.Score;
+        }
+
+        public override ProblemType Type
+        {
+            get
+            {
+                return ProblemType.HumanGradableQuestion;
+            }
+        }
+    }
 
 }

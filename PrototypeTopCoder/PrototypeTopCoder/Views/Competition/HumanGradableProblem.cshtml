@@ -1,0 +1,29 @@
+﻿@model Tuple<PrototypeTopCoder.Models.HumanGradableProblemModel, PrototypeTopCoder.Models.HumanGradableAnswer>
+
+<script>
+    $(function () {
+        var id = @Model.Item1.ID
+        $('#button' + id).click(function () {
+            var editor = tinyMCE.get('question' + id);
+            var value = tinyMCE.DOM.encode(editor.getContent());
+            $.post('/Competition/SubmitHumanGradableQuestion/' + id, {
+                data: value
+            }, function (data) {
+                if (data == 'OK') {
+                }
+            });
+        });
+    });
+</script>
+
+<div class="problem">
+    <div class="display-field">
+        @Html.Raw(Model.Item1.Question)
+    </div>
+
+    <textarea name=@("question" + Model.Item1.ID) id=@("question" + Model.Item1.ID)>
+        @(Model.Item2 == null ? "" : Model.Item2.Answer)
+    </textarea>
+
+    <button id=@("button" + Model.Item1.ID)>Save</button>
+</div>

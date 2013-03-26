@@ -24,9 +24,14 @@
                     Model.Answers[i] as PrototypeTopCoder.Models.SimpleProblemAnswer))
                 break;
             case PrototypeTopCoder.Models.ProblemType.ComplexTextQuestion:
-                @Html.Partial("~/VIews/Competition/ComplexTestProblem.cshtml", Tuple.Create(
+                @Html.Partial("~/Views/Competition/ComplexTestProblem.cshtml", Tuple.Create(
                     problem as PrototypeTopCoder.Models.ComplexTestProblemModel,
                     Model.Answers[i] as PrototypeTopCoder.Models.ComplexProblemAnswer))
+                break;
+            case PrototypeTopCoder.Models.ProblemType.HumanGradableQuestion:
+                @Html.Partial("~/Views/Competition/HumanGradableProblem.cshtml", Tuple.Create(
+                    problem as PrototypeTopCoder.Models.HumanGradableProblemModel,
+                    Model.Answers[i] as PrototypeTopCoder.Models.HumanGradableAnswer))
                 break;
         }
     }

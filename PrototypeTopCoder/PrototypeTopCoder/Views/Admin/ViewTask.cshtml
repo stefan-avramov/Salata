@@ -15,6 +15,10 @@ else if (Model is PrototypeTopCoder.Models.ComplexTestProblemModel)
 {
     @Html.Partial("ViewComplexTestProblem", Model)
 }
+else if (Model is PrototypeTopCoder.Models.HumanGradableProblemModel)
+{
+    @Html.Partial("ViewHumanGradableProblem", Model)
+}
 else
 {
     @Html.Label("Nqma takis")

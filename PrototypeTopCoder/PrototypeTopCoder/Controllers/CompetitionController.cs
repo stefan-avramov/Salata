@@ -40,5 +40,14 @@ namespace PrototypeTopCoder.Controllers
 			else
 				return new JsonResult() { JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet, Data = "Failed" };
 		}
+
+        [HttpPost]
+        public JsonResult SubmitHumanGradableQuestion(int id, string answer)
+        {
+            if (DataHelper.SubmitHumanGradableQuestion(Session["username"] as string, id, Request.Form[0]))
+                return new JsonResult() { JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet, Data = "OK" };
+            else
+                return new JsonResult() { JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet, Data = "Failed" };
+        }
 	}
 }

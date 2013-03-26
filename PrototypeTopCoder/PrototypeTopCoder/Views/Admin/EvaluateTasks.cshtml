@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Tuple<PrototypeTopCoder.Models.HumanGradableAnswer, int>>
+
+@{
+    ViewBag.Title = "EvaluateTasks";
+}
+
+<script>
+    $(function () {
+        $('.save').click(function () {
+            var id = $(this).data('id');
+            var value = $('#score' + id).val();
+            $.post('/Admin/GradeSubmission/' + id, {
+                data: value
+            }, function (data) {
+                if (data == 'OK') {
+                }
+            });
+        });
+    });
+</script>
+
+<div class="header">evaluate tasks</div>
+
+@foreach (var tuple in Model)
+{ 
+    <div class="tile">
+        <span>Answer: </span>@Html.Raw(tuple.Item1.Answer)
+        <input type="number" value="@tuple.Item1.Score" id=@("score" + tuple.Item2) />
+        <button class="save" data-id="@tuple.Item2">Save score</button>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
