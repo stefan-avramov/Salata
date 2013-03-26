@@ -56,6 +56,7 @@ namespace PrototypeTopCoder.Models
 
         public MultiSelectList ProblemList { get; set; }
 
+        [Display(Name = "Selected problems")]
         public int[] SelectedProblems { get; set; }
 
 		public CompetitionState State
